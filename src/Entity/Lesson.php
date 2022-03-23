@@ -22,6 +22,9 @@ class Lesson
     #[ORM\Column(type: 'string', length: 255)]
     private $picture;
 
+    #[ORM\ManyToOne(targetEntity: section::class, inversedBy: 'lessons')]
+    private $section;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Lesson
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getSection(): ?section
+    {
+        return $this->section;
+    }
+
+    public function setSection(?section $section): self
+    {
+        $this->section = $section;
 
         return $this;
     }

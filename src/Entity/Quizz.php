@@ -22,6 +22,9 @@ class Quizz
     #[ORM\Column(type: 'string', length: 255)]
     private $answer;
 
+    #[ORM\ManyToOne(targetEntity: section::class, inversedBy: 'quizzs')]
+    private $section;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Quizz
     public function setAnswer(string $answer): self
     {
         $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function getSection(): ?section
+    {
+        return $this->section;
+    }
+
+    public function setSection(?section $section): self
+    {
+        $this->section = $section;
 
         return $this;
     }
