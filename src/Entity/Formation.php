@@ -22,6 +22,9 @@ class Formation
     #[ORM\Column(type: 'text')]
     private $description;
 
+    #[ORM\ManyToOne(targetEntity: user::class, inversedBy: 'formations')]
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Formation
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
