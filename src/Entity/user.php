@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class user implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $description;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Formation::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: formation::class)]
     private $formations;
 
     public function __construct()
@@ -182,14 +182,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Formation>
+     * @return Collection<int, formation>
      */
     public function getFormations(): Collection
     {
         return $this->formations;
     }
 
-    public function addFormation(Formation $formation): self
+    public function addFormation(formation $formation): self
     {
         if (!$this->formations->contains($formation)) {
             $this->formations[] = $formation;
@@ -199,7 +199,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeFormation(Formation $formation): self
+    public function removeFormation(formation $formation): self
     {
         if ($this->formations->removeElement($formation)) {
             // set the owning side to null (unless already changed)
@@ -209,5 +209,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->fullname;
     }
 }

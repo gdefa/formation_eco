@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Lesson;
+use App\Entity\lesson;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Lesson|null find($id, $lockMode = null, $lockVersion = null)
- * @method Lesson|null findOneBy(array $criteria, array $orderBy = null)
- * @method Lesson[]    findAll()
- * @method Lesson[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method lesson|null find($id, $lockMode = null, $lockVersion = null)
+ * @method lesson|null findOneBy(array $criteria, array $orderBy = null)
+ * @method lesson[]    findAll()
+ * @method lesson[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class LessonRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Lesson::class);
+        parent::__construct($registry, lesson::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Lesson $entity, bool $flush = true): void
+    public function add(lesson $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class LessonRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Lesson $entity, bool $flush = true): void
+    public function remove(lesson $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class LessonRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Lesson[] Returns an array of Lesson objects
+    //  * @return lesson[] Returns an array of lesson objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class LessonRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Lesson
+    public function findOneBySomeField($value): ?lesson
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.exampleField = :val')

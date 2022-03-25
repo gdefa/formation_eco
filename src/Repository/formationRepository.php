@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Formation;
+use App\Entity\formation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Formation|null find($id, $lockMode = null, $lockVersion = null)
- * @method Formation|null findOneBy(array $criteria, array $orderBy = null)
- * @method Formation[]    findAll()
- * @method Formation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method formation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method formation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method formation[]    findAll()
+ * @method formation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FormationRepository extends ServiceEntityRepository
+class formationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Formation::class);
+        parent::__construct($registry, formation::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Formation $entity, bool $flush = true): void
+    public function add(formation $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class FormationRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Formation $entity, bool $flush = true): void
+    public function remove(formation $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class FormationRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Formation[] Returns an array of Formation objects
+    //  * @return formation[] Returns an array of formation objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class FormationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Formation
+    public function findOneBySomeField($value): ?formation
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.exampleField = :val')

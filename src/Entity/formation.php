@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\FormationRepository;
+use App\Repository\formationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FormationRepository::class)]
-class Formation
+#[ORM\Entity(repositoryClass: formationRepository::class)]
+class formation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,7 +27,7 @@ class Formation
     #[ORM\ManyToOne(targetEntity: user::class, inversedBy: 'formations')]
     private $user;
 
-    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: Section::class)]
+    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: section::class)]
     private $sections;
 
     public function __construct()
@@ -89,14 +89,14 @@ class Formation
     }
 
     /**
-     * @return Collection<int, Section>
+     * @return Collection<int, section>
      */
     public function getSections(): Collection
     {
         return $this->sections;
     }
 
-    public function addSection(Section $section): self
+    public function addSection(section $section): self
     {
         if (!$this->sections->contains($section)) {
             $this->sections[] = $section;
@@ -106,7 +106,7 @@ class Formation
         return $this;
     }
 
-    public function removeSection(Section $section): self
+    public function removeSection(section $section): self
     {
         if ($this->sections->removeElement($section)) {
             // set the owning side to null (unless already changed)
@@ -116,5 +116,9 @@ class Formation
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->title;
     }
 }

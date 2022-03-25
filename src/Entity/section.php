@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SectionRepository::class)]
-class Section
+class section
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,10 +24,10 @@ class Section
     #[ORM\ManyToOne(targetEntity: formation::class, inversedBy: 'sections')]
     private $formation;
 
-    #[ORM\OneToMany(mappedBy: 'section', targetEntity: Lesson::class)]
+    #[ORM\OneToMany(mappedBy: 'section', targetEntity: lesson::class)]
     private $lessons;
 
-    #[ORM\OneToMany(mappedBy: 'section', targetEntity: Quizz::class)]
+    #[ORM\OneToMany(mappedBy: 'section', targetEntity: quizz::class)]
     private $quizzs;
 
     public function __construct()
@@ -78,14 +78,14 @@ class Section
     }
 
     /**
-     * @return Collection<int, Lesson>
+     * @return Collection<int, lesson>
      */
     public function getLessons(): Collection
     {
         return $this->lessons;
     }
 
-    public function addLesson(Lesson $lesson): self
+    public function addLesson(lesson $lesson): self
     {
         if (!$this->lessons->contains($lesson)) {
             $this->lessons[] = $lesson;
@@ -95,7 +95,7 @@ class Section
         return $this;
     }
 
-    public function removeLesson(Lesson $lesson): self
+    public function removeLesson(lesson $lesson): self
     {
         if ($this->lessons->removeElement($lesson)) {
             // set the owning side to null (unless already changed)
@@ -108,14 +108,14 @@ class Section
     }
 
     /**
-     * @return Collection<int, Quizz>
+     * @return Collection<int, quizz>
      */
     public function getQuizzs(): Collection
     {
         return $this->quizzs;
     }
 
-    public function addQuizz(Quizz $quizz): self
+    public function addQuizz(quizz $quizz): self
     {
         if (!$this->quizzs->contains($quizz)) {
             $this->quizzs[] = $quizz;
@@ -125,7 +125,7 @@ class Section
         return $this;
     }
 
-    public function removeQuizz(Quizz $quizz): self
+    public function removeQuizz(quizz $quizz): self
     {
         if ($this->quizzs->removeElement($quizz)) {
             // set the owning side to null (unless already changed)

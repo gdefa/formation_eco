@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Lesson;
+use App\Entity\lesson;
 use App\Form\LessonType;
 use App\Repository\LessonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ class LessonController extends AbstractController
     #[Route('/new', name: 'app_lesson_new', methods: ['GET', 'POST'])]
     public function new(Request $request, LessonRepository $lessonRepository): Response
     {
-        $lesson = new Lesson();
+        $lesson = new lesson();
         $form = $this->createForm(LessonType::class, $lesson);
         $form->handleRequest($request);
 
@@ -40,7 +40,7 @@ class LessonController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_lesson_show', methods: ['GET'])]
-    public function show(Lesson $lesson): Response
+    public function show(lesson $lesson): Response
     {
         return $this->render('lesson/show.html.twig', [
             'lesson' => $lesson,
@@ -48,7 +48,7 @@ class LessonController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_lesson_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Lesson $lesson, LessonRepository $lessonRepository): Response
+    public function edit(Request $request, lesson $lesson, LessonRepository $lessonRepository): Response
     {
         $form = $this->createForm(LessonType::class, $lesson);
         $form->handleRequest($request);
@@ -65,7 +65,7 @@ class LessonController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_lesson_delete', methods: ['POST'])]
-    public function delete(Request $request, Lesson $lesson, LessonRepository $lessonRepository): Response
+    public function delete(Request $request, lesson $lesson, LessonRepository $lessonRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$lesson->getId(), $request->request->get('_token'))) {
             $lessonRepository->remove($lesson);

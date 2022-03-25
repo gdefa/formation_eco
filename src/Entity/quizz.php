@@ -6,7 +6,7 @@ use App\Repository\QuizzRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuizzRepository::class)]
-class Quizz
+class quizz
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

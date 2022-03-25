@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Section;
+use App\Entity\section;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Section|null find($id, $lockMode = null, $lockVersion = null)
- * @method Section|null findOneBy(array $criteria, array $orderBy = null)
- * @method Section[]    findAll()
- * @method Section[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method section|null find($id, $lockMode = null, $lockVersion = null)
+ * @method section|null findOneBy(array $criteria, array $orderBy = null)
+ * @method section[]    findAll()
+ * @method section[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class SectionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Section::class);
+        parent::__construct($registry, section::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Section $entity, bool $flush = true): void
+    public function add(section $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class SectionRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Section $entity, bool $flush = true): void
+    public function remove(section $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class SectionRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Section[] Returns an array of Section objects
+    //  * @return section[] Returns an array of section objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class SectionRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Section
+    public function findOneBySomeField($value): ?section
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

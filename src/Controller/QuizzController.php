@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Quizz;
+use App\Entity\quizz;
 use App\Form\QuizzType;
 use App\Repository\QuizzRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ class QuizzController extends AbstractController
     #[Route('/new', name: 'app_quizz_new', methods: ['GET', 'POST'])]
     public function new(Request $request, QuizzRepository $quizzRepository): Response
     {
-        $quizz = new Quizz();
+        $quizz = new quizz();
         $form = $this->createForm(QuizzType::class, $quizz);
         $form->handleRequest($request);
 
@@ -40,7 +40,7 @@ class QuizzController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_quizz_show', methods: ['GET'])]
-    public function show(Quizz $quizz): Response
+    public function show(quizz $quizz): Response
     {
         return $this->render('quizz/show.html.twig', [
             'quizz' => $quizz,
@@ -48,7 +48,7 @@ class QuizzController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_quizz_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Quizz $quizz, QuizzRepository $quizzRepository): Response
+    public function edit(Request $request, quizz $quizz, QuizzRepository $quizzRepository): Response
     {
         $form = $this->createForm(QuizzType::class, $quizz);
         $form->handleRequest($request);
@@ -65,7 +65,7 @@ class QuizzController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_quizz_delete', methods: ['POST'])]
-    public function delete(Request $request, Quizz $quizz, QuizzRepository $quizzRepository): Response
+    public function delete(Request $request, quizz $quizz, QuizzRepository $quizzRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$quizz->getId(), $request->request->get('_token'))) {
             $quizzRepository->remove($quizz);

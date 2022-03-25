@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Section;
+use App\Entity\section;
 use App\Form\SectionType;
 use App\Repository\SectionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ class SectionController extends AbstractController
     #[Route('/new', name: 'app_section_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SectionRepository $sectionRepository): Response
     {
-        $section = new Section();
+        $section = new section();
         $form = $this->createForm(SectionType::class, $section);
         $form->handleRequest($request);
 
@@ -40,7 +40,7 @@ class SectionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_section_show', methods: ['GET'])]
-    public function show(Section $section): Response
+    public function show(section $section): Response
     {
         return $this->render('section/show.html.twig', [
             'section' => $section,
@@ -48,7 +48,7 @@ class SectionController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_section_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Section $section, SectionRepository $sectionRepository): Response
+    public function edit(Request $request, section $section, SectionRepository $sectionRepository): Response
     {
         $form = $this->createForm(SectionType::class, $section);
         $form->handleRequest($request);
@@ -65,7 +65,7 @@ class SectionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_section_delete', methods: ['POST'])]
-    public function delete(Request $request, Section $section, SectionRepository $sectionRepository): Response
+    public function delete(Request $request, section $section, SectionRepository $sectionRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$section->getId(), $request->request->get('_token'))) {
             $sectionRepository->remove($section);
