@@ -11,15 +11,15 @@
                         <a class="nav-link active" aria-current="page" href="{{ path('app_homepage') }}">Acceuil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href={{ path('app_formation_index') }}>Accedez aux formations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
+                        <a class="nav-link ">Disabled</a>
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <a class="btn btn-success me-2" href="#" role="button" >Inscription</a>
-                    <a class="btn btn-outline-success" href="#" role="button">Se connecter</a>
+                    <a class="btn btn-success me-2" href={{ path('app_register') }} role="button" >Inscription</a>
+                    <a class="btn btn-outline-success" href={{ path('app_login') }} role="button">Se connecter</a>
                 </form>
             </div>
         </div>
