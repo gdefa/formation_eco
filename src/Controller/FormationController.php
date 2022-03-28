@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/formation')]
 class FormationController extends AbstractController
 {
-    #[Route('/', name: 'app_formation_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_formation_index', methods: ['GET'])]
     public function index(formationRepository $formationRepository): Response
     {
         return $this->render('formation/index.html.twig', [

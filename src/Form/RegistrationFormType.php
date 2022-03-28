@@ -47,14 +47,6 @@ class RegistrationFormType extends AbstractType
                 'required' => true
             ])
 
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'apprenant' => 'Apprenant',
-                    'instructeur' => 'Instructeur',
-                ],
-                'expanded' => true,
-                'multiple' => true,
-            ])
 
             ->add('description' , TextType::class , [
                 'constraints' => [
