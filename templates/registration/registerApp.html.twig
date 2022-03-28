@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement apprenant{% endblock %}
+
+{% block body %}
+
+    <div>
+        <div>
+            <h1 class="mb-3 text-center" id="titleRegister">INSCRIPTION</h1>
+            <h3 class="mt-3 text-center" id="subtitleRegister">Inscrivez-vous en tant qu'apprenant </h3>
+        </div>
+        </div>
+        <div class="row mt-4 form_border">
+            <div class="col-xs-12 d-flex justify-content-center ">
+
+                {{ form_start(registrationForm , {
+                    'attr' : {'class' :  'mb-3 mt-3 font-weight-bold text-uppercase ' , 'style' : 'font-style: italic;'}
+                }) }}
+                {{ form_row(registrationForm.email , {
+                    label: 'E-mail :',
+                    'attr': {'class': 'mb-3'}
+                }) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Mot de passe :',
+                    'attr': {'class': 'mb-3'}
+                }) }}
+                {{ form_row(registrationForm.pseudo, {
+                    label: 'Pseudo :',
+                    'attr': {'class': 'mb-3'}
+                }) }}
+
+
+                <button type="submit" class="btn btn-success">S'inscrire</button>
+
+                {{ form_end(registrationForm) }}
+                <a class="btn btn-success me-2" href={{ path('app_homepage') }} role="button" >Retour à l'acceuil</a>
+            </div>
+        </div>
+{% endblock %}
