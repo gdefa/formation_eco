@@ -1,4 +1,4 @@
-<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+<div id="myCarousel" class="carousel slide " data-bs-ride="carousel">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -6,35 +6,33 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
+            <img src="{{ asset('images/coursfemme.jpeg') }}" class="bd-placeholder-img" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
             <div class="container">
-                <div class="carousel-caption text-start">
-                    <h1>Example headline.</h1>
-                    <p>Some representative placeholder content for the first slide of the carousel.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                <div class="carousel-caption text-end">
+                    <p><strong class="text-carousel">Bienvenue sur EcoIT, votre formateur vert en ligne</strong></p>
+                    <p><a class="btn btn-lg btn-success" href="{{ path('app_login') }}">Se connecter</a></p>
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
+            <img src="{{ asset('images/laptopforet.jpg') }}"   class="bd-placeholder-img" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
             <div class="container">
-                <div class="carousel-caption">
-                    <h1>Another example headline.</h1>
-                    <p>Some representative placeholder content for the second slide of the carousel.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                <div class="carousel-caption text-end">
+                    <h1>A propos de nous</h1>
+                    <p></p>
+                    <p><a class="btn btn-lg btn-success" href="{{ path('app_homepage') }}">Nos valeurs</a></p>
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+            <img src="{{ asset('images/online.jpg') }}"   class="bd-placeholder-img" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
 
             <div class="container">
                 <div class="carousel-caption text-end">
-                    <h1>One more for good measure.</h1>
-                    <p>Some representative placeholder content for the third slide of this carousel.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                    <h1>Promo 2021</h1>
+                    <p>Rejoins-nous dès maintenant !</p>
+                    <p><a class="btn btn-lg btn-success" href="{{ path('app_register_apprenant') }}">Inscription</a></p>
+
                 </div>
             </div>
         </div>
