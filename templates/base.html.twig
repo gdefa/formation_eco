@@ -3,14 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}EcoIT{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="icon" href="{{ asset('images/logo.jpg') }}">⚫️</text></svg>">
 
         {% block stylesheets %}
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
                   crossorigin="anonymous">
-
-
        <a rel="stylesheet" href="{{ asset('CSS/style.css') }}">
         {% endblock %}
 
@@ -22,15 +20,39 @@
         <script src="{{ asset('JS/scripts.js') }}"></script>
 
         {% endblock %}
-    </head>
+               <nav class="navbar navbar-expand-md navbar-white fixed-top bg-white">
+                   <div class="container-fluid">
+                       <a class="navbar-brand" href="#">ECOIT</a>
+                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                           <span class="navbar-toggler-icon"></span>
+                       </button>
+                       <div class="collapse navbar-collapse" id="navbarCollapse">
+                           <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                               <li class="nav-item">
+                                   <a class="nav-link active" aria-current="page" href="{{ path('app_homepage') }}">Acceuil</a>
+                               </li>
+                               <li class="nav-item">
+                                   <a class="nav-link" href={{ path('app_formation_index') }}>Accedez aux formations</a>
+                               </li>
+                               <li class="nav-item">
+                                   <a class="nav-link ">A propos de nous</a>
+                               </li>
+                           </ul>
+                           <form class="d-flex">
+                               <a class="btn btn-success me-2" href={{ path('app_register_instructeur') }} role="button" >Devenez instructeur</a>
+                               <a class="btn btn-success me-2" href={{ path('app_register_apprenant') }} role="button" >Devenez apprenant</a>
+                               <a class="btn btn-outline-success" href={{ path('app_login') }} role="button">Se connecter</a>
+                           </form>
+                       </div>
+                   </div>
+               </nav>
+           </header>
     <body>
-        {%  include 'home/nav.html.twig' %}
         {% block body %}
-
-            {% include  'home/carousel.html.twig' %}
-
+            {% include 'home/carousel.html.twig' %}
+            {% include 'home/card.html.twig' %}
+            {% include  'home/footer.html.twig'%}
         {% endblock %}
-        {% include  'home/card.html.twig'%}
-        {% include'home/footer.html.twig' %}
+
     </body>
 </html>

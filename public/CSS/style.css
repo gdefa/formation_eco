@@ -27,20 +27,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* CAROUSEL
 -------------------------------------------------- */
-
-.carousel {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-}
-
-.carousel-caption {
-    bottom: 3rem;
-    z-index: 10;
-}
-
-.carousel-item{
-    min-width: 100%;
-    min-height: 50%;
+.carousel{
+    height: ;
+    width: auto;
 }
 
 
@@ -66,10 +55,6 @@ h1, h2, h3, h4, h5, h6 {
         line-height: 1.4;
     }
 
-    .featurette-heading {
-        font-size: 50px;
-    }
-}
 
 @media (min-width: 62em) {
     .featurette-heading {
