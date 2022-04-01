@@ -56,6 +56,9 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: formation::class)]
     private $formations;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $is_accepted;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
@@ -224,5 +227,17 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return (string)$this->fullname;
+    }
+
+    public function getIsAccepted(): ?bool
+    {
+        return $this->is_accepted;
+    }
+
+    public function setIsAccepted(?bool $is_accepted): self
+    {
+        $this->is_accepted = $is_accepted;
+
+        return $this;
     }
 }

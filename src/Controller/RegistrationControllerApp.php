@@ -17,7 +17,7 @@ class RegistrationControllerApp extends AbstractController
     #[Route('/register/apprenant', name: 'app_register_apprenant')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        $user = new User();
+        $user = new user();
         $form = $this->createForm(RegistrationFormTypeApp::class, $user);
         $form->handleRequest($request);
         //$user->setIsAccepted(true);
@@ -26,7 +26,7 @@ class RegistrationControllerApp extends AbstractController
         if ($user->getEmail('defa7@live.fr')) {
             $user->setRoles(['ROLE_ADMIN']);
             $user->setPseudo('admin');
-        }
+        } else
         $user->setRoles(['ROLE_APPRENANT']);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -42,7 +42,6 @@ class RegistrationControllerApp extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            $this->addFlash('inscription-apprenant', 'Félicitations, tu viens de t\'inscrire en tant qu\'apprenant. Connecte-toi !  ');
 
             return $this->redirectToRoute('app_login');
         }

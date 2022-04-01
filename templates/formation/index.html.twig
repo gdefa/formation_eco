@@ -3,8 +3,37 @@
 {% block title %}Formation index{% endblock %}
 
 {% block body %}
-    <h1>Formation index</h1>
-
+    <div class="container-fluid">
+        <div class="card bg-dark text-white">
+            <img src="{{ asset('images/formation2.jpg') }}" class="img rounded-3" style="width:100%; height:auto" alt="formation index">
+            <div class="card-img-overlay">
+                <h2 class="card-title">LES FORMATIONS</h2>
+                <p class="card-text">Retrouvez ici toutes nos formations disponibles</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                {% for formation in formations %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ formation.title }}</h5>
+                        <p class="card-text">{{ formation.description }}</p>
+                        <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-primary">Accès a la formation</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ formation.title }}</h5>
+                        <p class="card-text">{{ formation.description }}</p>
+                        <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-primary">Accès a la formation</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     <table class="table">
         <thead>
             <tr>
