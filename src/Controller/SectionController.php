@@ -24,6 +24,10 @@ class SectionController extends AbstractController
     #[Route('/new', name: 'app_section_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SectionRepository $sectionRepository): Response
     {
+        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $section = new section();
         $form = $this->createForm(SectionType::class, $section);
         $form->handleRequest($request);
@@ -50,6 +54,10 @@ class SectionController extends AbstractController
     #[Route('/{id}/edit', name: 'app_section_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, section $section, SectionRepository $sectionRepository): Response
     {
+        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
+            return $this->redirectToRoute('app_homepage');
+        }
+        
         $form = $this->createForm(SectionType::class, $section);
         $form->handleRequest($request);
 

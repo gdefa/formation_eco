@@ -25,6 +25,12 @@ class FormationController extends AbstractController
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, formationRepository $formationRepository): Response
     {
+        // accès interdit si on est pas accepté dans le dashborad admin
+
+        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $formation = new formation();
         /* La personne qui creer une formation est la personne connecte */
         $formation->setUser($this->getUser());
@@ -75,6 +81,10 @@ class FormationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, formation $formation, formationRepository $formationRepository): Response
     {
+        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
 
@@ -115,6 +125,9 @@ class FormationController extends AbstractController
     #[Route('/{id}', name: 'app_formation_delete', methods: ['POST'])]
     public function delete(Request $request, formation $formation, formationRepository $formationRepository): Response
     {
+        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
+            return $this->redirectToRoute('app_homepage');
+        }
         if ($this->isCsrfTokenValid('delete'.$formation->getId(), $request->request->get('_token'))) {
             $formationRepository->remove($formation);
         }

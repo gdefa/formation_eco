@@ -21,6 +21,7 @@ class LoginController extends AbstractController
             'lastUsername' =>$lastUsername,
             'error' => $error,
             ]);
+
     }
 
     #[Route ('/logout', name : 'logout')]
