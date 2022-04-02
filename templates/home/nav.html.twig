@@ -1,8 +1,8 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color:#CDA67A" >
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ECOIT</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="{{ path('app_homepage') }}">ECOIT</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" >
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -14,14 +14,87 @@
                         <a class="nav-link" href={{ path('app_formation_index') }}>Accedez aux formations</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link ">Creer une nouvelle formation</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link ">A propos de nous</a>
                     </li>
+                    <li class="nav-item">
+                    {% if is_granted('ROLE_ADMIN')%}
+                        <a class="nav-link href={{ path('app_admin')}}">Administrateur</a>
+                    {% endif %}
+                    </li>
+                    <li class="nav-item">
+
+                    </li>
                 </ul>
+                {% if is_granted('ROLE_INSTRUCTEUR') %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Instructeur menu
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="{{ path('app_formation_new') }}path">Creer une nouvelle formation</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_section_new') }}">Creer une nouvelle section</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_lesson_new') }}">Creer une nouvelle leçon</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+
+                <ul style="list-style: none;">
+                    <li>
+                        <strong>Rôle :</strong> Admin
+                    </li>
+                    <li>
+                        <a class="link-danger" href="{{ path('logout') }}">Déconnexion</a>
+                    </li>
+                </ul>
+
+
+                {% elseif is_granted('ROLE_INSTRUCTEUR') %}
+                <ul style="list-style: none;">
+                    <li>
+                        <p>Bienvenue <strong>{{ app.user.fullname }} {{ app.user.name }}</strong></p>
+                    </li>
+                    <li>
+                        <strong>Rôle :</strong> Instructeur
+                    </li>
+                    <li>
+                        <a class="link-danger" href="{{ path('logout') }}">Déconnexion</a>
+                    </li>
+                </ul>
+
+
+                {% elseif is_granted('ROLE_APPRENANT') %}
+                <ul style="list-style: none;">
+                    <li>
+                        Bienvenue {{ app.user.pseudo }}
+                    </li>
+                    <li>
+                        <strong>Rôle :</strong> Apprenant
+                    </li>
+                    <li>
+                        <a class="link-danger" href="{{ path('logout') }}">Déconnexion</a>
+                    </li>
+                </ul>
+                {% else %}
+                    <div class="dropdown">
+                        <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#474241">
+                            S'inscrire
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href={{ path('app_register_instructeur') }} role="button" >Instructeur</a></li>
+                            <li><a class="dropdown-item" href={{ path('app_register_apprenant') }} role="button" >Apprenant</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('app_register_apprenant') }}">Separated link</a></li>
+                        </ul>
+                    </div>
                 <form class="d-flex">
-                    <a class="btn btn-success me-2" href={{ path('app_register_instructeur') }} role="button" >Devenez instructeur</a>
-                    <a class="btn btn-success me-2" href={{ path('app_register_apprenant') }} role="button" >Devenez apprenant</a>
-                    <a class="btn btn-outline-success" href={{ path('login') }} role="button">Se connecter</a>
+                    <a class="btn btn-success" style="background-color:#474241" href={{ path('login') }} role="button">Se connecter</a>
                 </form>
+                {% endif %}
             </div>
         </div>
     </nav>
