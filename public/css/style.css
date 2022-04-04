@@ -6,10 +6,12 @@ h1,h2,h3,h4,h5,h6 {
     font-family: 'Maitree', sans-serif;
 }
 
-button{
-    padding: 1em;
+
+#homeImg{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    background-color: rgba(71,66,65,0.87);
 }
-
-
-
 /*  Inscription */
+
+/* navigation */

@@ -3,72 +3,35 @@
 {% block title %}Formation index{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="card bg-dark text-white">
-            <img src="{{ asset('images/formation2.jpg') }}" class="img rounded-3" style="width:450px; height:auto" alt="formation index">
-            <div class="card-img-overlay">
-                <h2 class="card-title">LES FORMATIONS</h2>
-                <p class="card-text">Retrouvez ici toutes nos formations disponibles</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                {% for formation in formations %}
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ formation.title }}</h5>
-                        <img class="thumbnail" src="{{ asset('formation.images')}}">
-                        <p class="card-text">{{ formation.description }}</p>
-                        <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-primary">Accès a la formation</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ formation.title }}</h5>
-                        <p class="card-text">{{ formation.description }}</p>
-                        <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-primary">Accès a la formation</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Picture</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for formation in formations %}
-            <tr>
-                <td>{{ formation.id }}</td>
-                <td>{{ formation.title }}</td>
-                <td>{{ formation.picture }}</td>
-                <td>{{ formation.description }}</td>
-                <td>
-                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>
 
-                    {% if is_granted('ROLE_INSTRUCTEUR') != false %}
-                        <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">Modification</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% if is_granted('ROLE_INSTRUCTEUR') != false %}
-        <a href="{{ path('app_formation_new') }}">Create new</a>
-    {% endif %}
+    <section class="features-blue">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">LES FORMATIONS</h2>
+                <p class="text-center">Retrouvez ici toutes nos formations disponibles </p>
+                <a href="{{ path('app_formation_new') }}">Création formation</a>
+            </div>
+            <div class="row features">
+                {% for formation in formations %}
+                <div class="col-sm-6 col-md-4 item">
+                    <h3 class="name"><strong>{{ formation.title }}</strong></h3>
+                    <img class="img-thumbnail" src="{{ asset('Formation/' ~ 'formation.picture')}}">
+                    <p class="description">{{ formation.description }}</p>
+                    <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-primary">Accès a la formation</a>
+                </div>
+
+                {% if is_granted('ROLE_INSTRUCTEUR') != false %}
+
+                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">Modification</a>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </section>
+
+
+
 
 {% endblock %}

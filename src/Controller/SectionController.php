@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/section')]
 class SectionController extends AbstractController
 {
+
     #[Route('/', name: 'app_section_index', methods: ['GET'])]
     public function index(SectionRepository $sectionRepository): Response
     {
@@ -24,9 +25,6 @@ class SectionController extends AbstractController
     #[Route('/new', name: 'app_section_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SectionRepository $sectionRepository): Response
     {
-        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
-            return $this->redirectToRoute('app_homepage');
-        }
 
         $section = new section();
         $form = $this->createForm(SectionType::class, $section);

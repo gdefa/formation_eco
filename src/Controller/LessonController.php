@@ -24,9 +24,6 @@ class LessonController extends AbstractController
     #[Route('/new', name: 'app_lesson_new', methods: ['GET', 'POST'])]
     public function new(Request $request, LessonRepository $lessonRepository): Response
     {
-        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
-            return $this->redirectToRoute('app_homepage');
-        }
 
         $lesson = new lesson();
         $form = $this->createForm(LessonType::class, $lesson);
@@ -54,9 +51,7 @@ class LessonController extends AbstractController
     #[Route('/{id}/edit', name: 'app_lesson_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, lesson $lesson, LessonRepository $lessonRepository): Response
     {
-        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
-            return $this->redirectToRoute('app_homepage');
-        }
+
 
         $form = $this->createForm(LessonType::class, $lesson);
         $form->handleRequest($request);
