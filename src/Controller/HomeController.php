@@ -13,8 +13,9 @@ class HomeController extends AbstractController
     public function index(FormationRepository $formationRepository): Response
     {
         $formations = $formationRepository->findBy([], ['id' => 'desc'], 3);
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/card.html.twig', [
             'controller_name' => 'HomeController',
+            'formations' => $formations
         ]);
     }
 }
