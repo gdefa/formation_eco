@@ -19,13 +19,16 @@
     </head>
     <body>
 
+    {% block header %}
+    {% include 'home/nav.html.twig'%}
+    {% endblock %}
+
 
     <main>
         {% block body %}
-            {% include 'home/nav.html.twig'%}
             {% include 'home/homeAccueil.html.twig' %}
-           {#  {% include 'home/card.html.twig' %} #}
         {% endblock %}
+
         {% include  'home/footer.html.twig'%}
     </main>
     </body>
