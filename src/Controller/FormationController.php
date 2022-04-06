@@ -18,7 +18,7 @@ class FormationController extends AbstractController
     #[Route('/index', name: 'app_formation_index', methods: ['GET'])]
     public function index(formationRepository $formationRepository): Response
     {
-        return $this->render('formation/index.html.twig', [
+        return $this->render('home/card.html.twig', [
             'formations' => $formationRepository->findAll(),
         ]);
     }
@@ -56,7 +56,6 @@ class FormationController extends AbstractController
             }
             $formationRepository->add($formation);
 
-
             return $this->redirectToRoute('app_section_new', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -74,6 +73,7 @@ class FormationController extends AbstractController
 
         return $this->render('formation/show.html.twig', [
             'formation' => $formation,
+            'sectionsFormation' => $sectionFormation
         ]);
     }
 

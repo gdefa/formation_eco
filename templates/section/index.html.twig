@@ -15,7 +15,7 @@
                     <div class="col-sm-6 col-md-4 item">
                         <h3 class="name"><strong>{{ section.title }}</strong></h3>
                         <p class="description">{{ section.name }}</p>
-                        <a href="{{ path('app_lesson_show', {'id': lesson.Id }) }}" class="btn btn-primary" >Acceder à la leçon</a>
+                       {#  <a href="{{ path('app_lesson_show', {'id': lesson.Id }) }}" class="btn btn-primary" >Acceder à la leçon</a>#}
                     </div>
                 {% endfor %}
             </div>
@@ -24,7 +24,7 @@
             <a href="{{ path('app_section_new') }}">Création section</a>
         {% endif %}
     </section>
-
+{% endblock %}
 
     {# <h1>Section index</h1>
 
@@ -56,5 +56,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_section_new') }}">Create new</a>
-{% endblock %}
+    <a href="{{ path('app_section_new') }}">Create new</a> #}
+
