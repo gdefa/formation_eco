@@ -2,20 +2,31 @@
 
 {% block title %}Formation index{% endblock %}
 
+{% block header %}
+{% endblock %}
+
 {% block body %}
 
-    <section class="features-blue">
+
+
+
+    <section class="features">
         <div class="container">
+            <div class="row mt-2 mb-3 ">
+                <div class=" d-flex justify-content-end">
+                    <input type="text" id="searchbar" placeholder="Rechercher un titre de formation">
+                </div>
+            </div>
             <div class="intro">
                 <h2 class="text-center">LES FORMATIONS</h2>
                 <p class="text-center">Retrouvez ici toutes nos formations disponibles </p>
                 <a href="{{ path('app_formation_new') }}">Création formation</a>
             </div>
-            <div class="row features">
+            <div class="row">
                 {% for formation in formations %}
-                <div class="col-sm-6 col-md-4 item">
-                    <h3 class="name"><strong>{{ formation.title }}</strong></h3>
-                    <img class="img-thumbnail" src="{{ asset('Formation/' ~ 'formation.picture')}}">
+                <div class="col-sm-6 col-md-4 ">
+                    <h3 class="formationTitle"><strong>{{ formation.title }}</strong></h3>
+                    <img class="img-thumbnail" src="{{ asset('Formation/' ~  formation.picture ) }}">
                     <p class="description">{{ formation.description }}</p>
                     <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-primary">Accès a la formation</a>
                 </div>
