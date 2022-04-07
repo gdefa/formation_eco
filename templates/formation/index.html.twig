@@ -24,7 +24,7 @@
             </div>
             <div class="row">
                 {% for formation in formations %}
-                <div class="col-sm-6 col-md-4 ">
+                <div class="col-sm-6 col-md-4 formationGlobal ">
                     <h3 class="formationTitle"><strong>{{ formation.title }}</strong></h3>
                     <img class="img-thumbnail" src="{{ asset('Formation/' ~  formation.picture ) }}">
                     <p class="description">{{ formation.description }}</p>
