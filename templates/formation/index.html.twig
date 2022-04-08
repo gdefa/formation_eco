@@ -7,34 +7,31 @@
 
 {% block body %}
 
-
-
-
     <section class="features">
         <div class="container">
-            <div class="row mt-2 mb-3 ">
-                <div class=" d-flex justify-content-end">
-                    <input type="text" id="searchbar" placeholder="Rechercher un titre de formation">
+            <div class="row mt-2 mb-3 w-25">
+                <div class="input-group rounded d-flex justify-content-end">
+                    <input type="text" class="form-control rounded" id="searchbar" placeholder="Rechercher un titre de formation">
                 </div>
             </div>
             <div class="intro">
                 <h2 class="text-center">LES FORMATIONS</h2>
                 <p class="text-center">Retrouvez ici toutes nos formations disponibles </p>
-                <a href="{{ path('app_formation_new') }}">Création formation</a>
+                <a href="{{ path('app_formation_new') }}" class="btn btn-success">Création formation</a>
             </div>
-            <div class="row">
+            <div class="row mt-5">
                 {% for formation in formations %}
                 <div class="col-sm-6 col-md-4 formationGlobal ">
                     <h3 class="formationTitle"><strong>{{ formation.title }}</strong></h3>
-                    <img class="img-thumbnail" src="{{ asset('Formation/' ~  formation.picture ) }}">
+                    <img class="img-thumbnail" src="{{ asset('Formation/' ~  formation.picture ) }}" style="height: 200px; width:250px ">
                     <p class="description">{{ formation.description }}</p>
                     <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-primary">Accès a la formation</a>
+                    {% if is_granted('ROLE_INSTRUCTEUR') != false %}
+                        <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-secondary">Modification</a>
+                    {% endif %}
                 </div>
 
-                {% if is_granted('ROLE_INSTRUCTEUR') != false %}
 
-                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">Modification</a>
-                {% endif %}
                 {% endfor %}
             </div>
 

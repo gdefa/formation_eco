@@ -10,10 +10,14 @@
             </a>
 
             <ul class="nav col-md-5 justify-content-end">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Nos formations</a></li>
+                <li class="nav-item">
+                    <a class="nav-link href={{ path('app_section_index')}}  px-2 text-muted">Acceuil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link href={{ path('app_section_index')}}  px-2 text-muted">Nos formations</a>
+                </li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">A propos de nous</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">S'inscrire</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Se connecter</a></li>
+                <li class="nav-item"><a class="nav-link href={{ path('login')}}  px-2 text-muted">Se connecter</a></li>
             </ul>
         </footer>
     </div>

@@ -34,13 +34,13 @@
                 {% for formation in formations %}
                     <div class="col-sm-6 col-md-4 item">
                         <h3 class="name"><strong>{{ formation.title }}</strong></h3>
-                        <img class="img-thumbnail" style="width:260px;height:260px" src="{{ asset('Formation/' ~  formation.picture ) }}">
+                        <img class="img-thumbnail" style="width:260px;height:260px" src="{{ asset('Formation/' ~  formation.picture ) }}" alt="">
                         <p class="description">{{ formation.description }}</p>
                         <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-primary">Accès a la formation</a>
                     </div>
                 {% endfor %}
             </div>
-
+            </div>
         </div>
 
     </section>
