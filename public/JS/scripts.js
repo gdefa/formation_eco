@@ -1,3 +1,5 @@
+// Seacr Bar index formation
+
 $(document).ready(function () {
     $("#searchbar").on("keyup", function () {
         var value = $(this).val().toLowerCase();
@@ -7,4 +9,4 @@ $(document).ready(function () {
     });
 });
 
-
+//

@@ -20,14 +20,8 @@ class RegistrationControllerApp extends AbstractController
         $user = new user();
         $form = $this->createForm(RegistrationFormTypeApp::class, $user);
         $form->handleRequest($request);
-        //$user->setIsAccepted(true);
-
-
-        if ($user->getEmail('defa7@live.fr')) {
-            $user->setRoles(['ROLE_ADMIN']);
-            $user->setPseudo('admin');
-        } else
         $user->setRoles(['ROLE_APPRENANT']);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -40,10 +34,11 @@ class RegistrationControllerApp extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
 
-            return $this->redirectToRoute('app_login');
+            $this->addFlash('inscription-apprenant', 'Inscription réussie, direction le login !  ');
+
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('registration/registerApp.html.twig', [

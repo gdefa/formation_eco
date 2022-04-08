@@ -59,9 +59,13 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $is_accepted;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: quizz::class)]
+    private $quizzs;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
+        $this->quizzs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -237,6 +241,36 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsAccepted(?bool $is_accepted): self
     {
         $this->is_accepted = $is_accepted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Quizz>
+     */
+    public function getQuizzs(): Collection
+    {
+        return $this->quizzs;
+    }
+
+    public function addQuizz(Quizz $quizz): self
+    {
+        if (!$this->quizzs->contains($quizz)) {
+            $this->quizzs[] = $quizz;
+            $quizz->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuizz(Quizz $quizz): self
+    {
+        if ($this->quizzs->removeElement($quizz)) {
+            // set the owning side to null (unless already changed)
+            if ($quizz->getUser() === $this) {
+                $quizz->setUser(null);
+            }
+        }
 
         return $this;
     }

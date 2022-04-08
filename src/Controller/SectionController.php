@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\section;
+use App\Entity\lesson;
 use App\Form\SectionType;
+use App\Repository\LessonRepository;
 use App\Repository\SectionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class SectionController extends AbstractController
 {
 
+
+
+
     #[Route('/', name: 'app_section_index', methods: ['GET'])]
     public function index(SectionRepository $sectionRepository): Response
     {
+
         return $this->render('section/index.html.twig', [
             'sections' => $sectionRepository->findAll(),
+
         ]);
     }
 
@@ -42,10 +49,14 @@ class SectionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_section_show', methods: ['GET'])]
-    public function show(section $section): Response
+    public function show( section $section, lessonRepository $lessonRepository, $id): Response
     {
+
+        $lessonSection = $lessonRepository->findBy(['section' => ['id'=> $id]]);
+
         return $this->render('section/show.html.twig', [
             'section' => $section,
+            'lessonsSection' => $lessonSection,
         ]);
     }
 
