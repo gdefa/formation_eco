@@ -4,17 +4,34 @@ namespace App\Form;
 
 use App\Entity\lesson;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class LessonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('title')
             ->add('content')
             ->add('video')
-            ->add('picture')
+            ->add('picture', FileType::class, [
+                'label' => 'Image de la leçon',
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '4096k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                            'image/jpeg'
+                        ],
+                        'mimeTypesMessage' => 'Il faut mettre une image valide (png, jpg, jpeg).',
+                    ])
+                ],
+            ])
             ->add('section')
         ;
     }

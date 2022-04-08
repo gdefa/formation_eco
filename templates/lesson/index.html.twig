@@ -2,38 +2,75 @@
 
 {% block title %}Lesson index{% endblock %}
 
+{% block header %}
+{% endblock %}
+
 {% block body %}
-    <h1>Lesson index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Content</th>
-                <th>Video</th>
-                <th>Picture</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="container">
+    <div class="formation-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">{{ section.title }}</h1>
+        <p class="fs-5 text-muted">Vous retrouvez ici vos leçons qui font parti de la section sélectionné.</p>
+    </div>
+    <div class="row">
         {% for lesson in lessons %}
-            <tr>
-                <td>{{ lesson.id }}</td>
-                <td>{{ lesson.content }}</td>
-                <td>{{ lesson.video }}</td>
-                <td>{{ lesson.picture }}</td>
-                <td>
-                    <a href="{{ path('app_lesson_show', {'id': lesson.id}) }}">show</a>
-                    <a href="{{ path('app_lesson_edit', {'id': lesson.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
+            <div class="col-sm-6 col-md-4 formationGlobal ">
+                <h3 class="formationTitle"><strong>{{ lesson.title }}</strong></h3>
+                <img class="img-thumbnail" src="{{ asset('lesson/' ~  lesson.picture ) }}" alt="formation image">
+                <p class="description">{{ lesson.content }}</p>
+                <a href="{{ path('app_lesson_show', {'id': lesson.id}) }}">Accès leçon</a>
+                {% if is_granted('ROLE_INSTRUCTEUR') != false %}
+                <a href="{{ path('app_lesson_edit', {'id': lesson.id}) }}">modification</a>
+                {{ include('formation/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_lesson_new') }}">Create new</a>
+   {#  <div class="container">
+        <div class="row">
+            {% for lesson in lessons %}
+            <div class="col-sm-3">
+                <p class="description">{{ lesson.title }}}</p>
+            </div>
+            {% endfor %}
+            <div class="col-sm-9">
+                <h1>Lesson index</h1>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Content</th>
+                        <th>Video</th>
+                        <th>Picture</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for lesson in lessons %}
+                        <tr>
+                            <td>{{ lesson.id }}</td>
+                            <td>{{ lesson.content }}</td>
+                            <td>{{ lesson.video }}</td>
+                            <td>{{ lesson.picture }}</td>
+                            <td>
+                                <a href="{{ path('app_lesson_show', {'id': lesson.id}) }}">show</a>
+                                <a href="{{ path('app_lesson_edit', {'id': lesson.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_lesson_new') }}">Create new</a>
+            </div>
+        </div>
+    </div>
+
+
+#}
 {% endblock %}

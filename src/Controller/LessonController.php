@@ -30,6 +30,27 @@ class LessonController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $lessonPicture */
+            $lessonPicture = $form->get('picture')->getData();
+
+            if ($lessonPicture) {
+                $newFilename = uniqid() . '.' . $lessonPicture->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $lessonPicture->move(
+                        $this->getParameter('kernel.project_dir') . '/public/lesson',
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Vous n\avez pas rempli le formulaire correctement.  ');
+                }
+
+
+                $lesson->setPicture($newFilename);
+            }
+
             $lessonRepository->add($lesson);
             return $this->redirectToRoute('app_lesson_index', [], Response::HTTP_SEE_OTHER);
         }
