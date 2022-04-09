@@ -3,9 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\lesson;
+use App\Entity\Progress;
 use App\Form\LessonType;
+use App\Form\ProgressType;
+use App\Form\RegistrationFormType;
 use App\Repository\LessonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,7 +52,6 @@ class LessonController extends AbstractController
                     $this->addFlash('error', 'Vous n\avez pas rempli le formulaire correctement.  ');
                 }
 
-
                 $lesson->setPicture($newFilename);
             }
 
@@ -62,20 +66,29 @@ class LessonController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_lesson_show', methods: ['GET'])]
-    public function show(lesson $lesson): Response
+    public function show( request $request, lesson $lesson, progress $progress): Response
     {
+
         $section = $lesson->getSection()->getId();
 
+        $progress = new progress();
+        $form = $this->createForm(progressType::class, $progress);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $progress->setLessonFinished(true);
+        }
         return $this->render('lesson/show.html.twig', [
             'lesson' => $lesson,
-            'section' =>$section
+            'section' =>$section,
+            'progress' =>$progress,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_lesson_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, lesson $lesson, LessonRepository $lessonRepository): Response
     {
-
 
         $form = $this->createForm(LessonType::class, $lesson);
         $form->handleRequest($request);
