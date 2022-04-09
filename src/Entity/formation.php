@@ -30,9 +30,16 @@ class formation
     #[ORM\OneToMany(mappedBy: 'formation', targetEntity: section::class)]
     private $sections;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isFinished;
+
+    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'formation')]
+    private $progress;
+
     public function __construct()
     {
         $this->sections = new ArrayCollection();
+        $this->progress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,5 +127,44 @@ class formation
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function getIsFinished(): ?bool
+    {
+        return $this->isFinished;
+    }
+
+    public function setIsFinished(bool $isFinished): self
+    {
+        $this->isFinished = $isFinished;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Progress>
+     */
+    public function getProgress(): Collection
+    {
+        return $this->progress;
+    }
+
+    public function addProgress(Progress $progress): self
+    {
+        if (!$this->progress->contains($progress)) {
+            $this->progress[] = $progress;
+            $progress->addFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgress(Progress $progress): self
+    {
+        if ($this->progress->removeElement($progress)) {
+            $progress->removeFormation($this);
+        }
+
+        return $this;
     }
 }

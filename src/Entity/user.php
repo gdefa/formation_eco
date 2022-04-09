@@ -62,10 +62,14 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: quizz::class)]
     private $quizzs;
 
+    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'user')]
+    private $progress;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
         $this->quizzs = new ArrayCollection();
+        $this->progress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -270,6 +274,33 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
             if ($quizz->getUser() === $this) {
                 $quizz->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Progress>
+     */
+    public function getProgress(): Collection
+    {
+        return $this->progress;
+    }
+
+    public function addProgress(Progress $progress): self
+    {
+        if (!$this->progress->contains($progress)) {
+            $this->progress[] = $progress;
+            $progress->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgress(Progress $progress): self
+    {
+        if ($this->progress->removeElement($progress)) {
+            $progress->removeUser($this);
         }
 
         return $this;

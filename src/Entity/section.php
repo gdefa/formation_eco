@@ -30,10 +30,17 @@ class section
     #[ORM\OneToMany(mappedBy: 'section', targetEntity: quizz::class)]
     private $quizzs;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isFinished;
+
+    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'section')]
+    private $progress;
+
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
         $this->quizzs = new ArrayCollection();
+        $this->progress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,5 +150,44 @@ class section
         return (string) $this->title;
         // to show the id of the Category in the select
         // return $this->id;
+    }
+
+    public function getIsFinished(): ?bool
+    {
+        return $this->isFinished;
+    }
+
+    public function setIsFinished(bool $isFinished): self
+    {
+        $this->isFinished = $isFinished;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Progress>
+     */
+    public function getProgress(): Collection
+    {
+        return $this->progress;
+    }
+
+    public function addProgress(Progress $progress): self
+    {
+        if (!$this->progress->contains($progress)) {
+            $this->progress[] = $progress;
+            $progress->addSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgress(Progress $progress): self
+    {
+        if ($this->progress->removeElement($progress)) {
+            $progress->removeSection($this);
+        }
+
+        return $this;
     }
 }

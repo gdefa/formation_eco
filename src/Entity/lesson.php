@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LessonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LessonRepository::class)]
@@ -27,6 +29,17 @@ class lesson
 
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isFinished;
+
+    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'lesson')]
+    private $progress;
+
+    public function __construct()
+    {
+        $this->progress = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +102,45 @@ class lesson
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getIsFinished(): ?bool
+    {
+        return $this->isFinished;
+    }
+
+    public function setIsFinished(bool $isFinished): self
+    {
+        $this->isFinished = $isFinished;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Progress>
+     */
+    public function getProgress(): Collection
+    {
+        return $this->progress;
+    }
+
+    public function addProgress(Progress $progress): self
+    {
+        if (!$this->progress->contains($progress)) {
+            $this->progress[] = $progress;
+            $progress->addLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgress(Progress $progress): self
+    {
+        if ($this->progress->removeElement($progress)) {
+            $progress->removeLesson($this);
+        }
 
         return $this;
     }
