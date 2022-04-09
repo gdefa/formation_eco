@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/lesson')]
 class LessonController extends AbstractController
 {
-    #[Route('/', name: 'app_lesson_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_lesson_index', methods: ['GET'])]
     public function index(LessonRepository $lessonRepository): Response
     {
         return $this->render('lesson/index.html.twig', [
@@ -64,8 +64,11 @@ class LessonController extends AbstractController
     #[Route('/{id}', name: 'app_lesson_show', methods: ['GET'])]
     public function show(lesson $lesson): Response
     {
+        $section = $lesson->getSection()->getId();
+
         return $this->render('lesson/show.html.twig', [
             'lesson' => $lesson,
+            'section' =>$section
         ]);
     }
 

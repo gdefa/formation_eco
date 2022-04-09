@@ -27,7 +27,7 @@
                 <h3 class="formationTitle"><strong>{{ sectionFormation.title }}</strong></h3>
                 <img class="img-thumbnail" src="{{ asset('Formation/' ~  formation.picture ) }}" alt="formation image">
                 <p class="description">{{ sectionFormation.name }}</p>
-                <a href="{{ path('app_lesson_index', {'id': sectionFormation.id }) }}" class="btn btn-primary" >Acceder au cours</a>
+                <a href="{{ path('app_section_show', {'id': sectionFormation.id }) }}" class="btn btn-primary" >Acceder au cours</a>
                 <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-secondary">Modification</a>
                 {{ include('formation/_delete_form.html.twig') }}
             </div>

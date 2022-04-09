@@ -17,6 +17,25 @@ class SectionController extends AbstractController
 {
 
 
+     #[Route('/{id}/liste/lesson', name:'liste_lesson', methods: ['GET'])]
+    public function listeLesson($id , SectionRepository $sectionRepository , LessonRepository $lessonRepository): Response
+    {
+        if( $this->getUser() == null){
+            return $this->redirectToRoute('app');
+        }
+
+
+        $sectionEncour = $sectionRepository->findBy(['id' => $id])[0];
+        $formationsectionId = $sectionEncour->getFormation()->getId();
+        $lesson = $lessonRepository->findBy(['section' => ['id' => $sectionEncour->getId()]]);
+
+
+        return $this->render('section/show.html.twig', [
+            'sectionEncour' => $sectionEncour,
+            'lesson' => $lesson,
+            'formation' => $formationsectionId
+        ]);
+    }
 
 
     #[Route('/', name: 'app_section_index', methods: ['GET'])]

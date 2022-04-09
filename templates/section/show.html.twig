@@ -2,6 +2,9 @@
 
 {% block title %}Section{% endblock %}
 
+{%  block header%}
+{% endblock  %}
+
 {% block body %}
 
 <div class="container">
@@ -15,35 +18,37 @@
 
 <div class="container">
     <div class="formation-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">{{ section.title }}</h1>
         <p class="fs-5 text-muted">Vous retrouvez ici vos leçons qui font parti de la section sélectionné.</p>
     </div>
     <div class="row">
         {% for lessonSection in lessonsSection %}
-            <div class="col-sm-6 col-md-4 formationGlobal ">
-                <h3 class="formationTitle"><strong>{{ lesson.title }}</strong></h3>
-                <img class="img-thumbnail" src="{{ asset('lesson/' ~  lesson.picture ) }}" alt="lesson image">
-                <p class="description">{{ lesson.content }}</p>
-                <a href="{{ path('app_lesson_show', {'id': lesson.id}) }}">Accès leçon</a>
-                {% if is_granted('ROLE_INSTRUCTEUR') != false %}
-                    <a href="{{ path('app_lesson_edit', {'id': lesson.id}) }}">modification</a>
-                    {{ include('formation/_delete_form.html.twig') }}
+            <div class="col-sm-6 col-md-4 ">
+                <h3 class="LessonTitle">
+                    <strong>{{ lessonSection.title }}</strong>
+                </h3>
+                {# <img class="img-thumbnail" src="{{ asset('lesson/' ~  lesson.picture ) }}" alt="lesson image">#}
+                <a href="{{ path('app_lesson_show', {'id': lessonSection.id }) }}" class="btn btn-primary" >Acceder au cours</a>
+                {% if lessonSection == [] %}
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-center alert alert-secondary">
+                            <p>Vos leçons sont en cours d'écriture... patience</p>
+                        </div>
+                    </div>
                 {% endif %}
-            </div>
         {% endfor %}
+                {% if is_granted('ROLE_INSTRUCTEUR') != false %}
 
-        {% if lesson == [] %}
-            <div class="row mt-2">
-                <div class="col d-flex justify-content-center alert alert-secondary">
-                    <p>Nos instructeurs préparent de nouvelles leçons.</p>
-                </div>
+                {% endif %}
+
             </div>
-        {% endif %}
+
 
     </div>
 </div>
 
 
-    <h1>Section</h1>
+    {# }<h1>Section</h1>
 
     <table class="table">
         <tbody>
@@ -67,4 +72,5 @@
     <a href="{{ path('app_section_edit', {'id': section.id}) }}">edit</a>
 
     {{ include('section/_delete_form.html.twig') }}
+    #}
 {% endblock %}
