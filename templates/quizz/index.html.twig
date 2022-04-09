@@ -3,37 +3,146 @@
 {% block title %}Quizz index{% endblock %}
 
 {% block body %}
-    <h1>Quizz index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Question</th>
-                <th>Answer</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for quizz in quizzs %}
-            <tr>
-                <td>{{ quizz.id }}</td>
-                <td>{{ quizz.title }}</td>
-                <td>{{ quizz.question }}</td>
-                <td>{{ quizz.answer }}</td>
-                <td>
-                    <a href="{{ path('app_quizz_show', {'id': quizz.id}) }}">show</a>
-                    <a href="{{ path('app_quizz_edit', {'id': quizz.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container mt-sm-5 my-1">
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="py-2 h5"><b>{{ quizz.question }}</b></div>
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                {% if quizApprenant.anwser == quizInstructeur.anwser %}
+                <label class="options">Vrai<input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                    {% endif %}
+                </label>
+                <label class="options">Faux<input type="radio" name="radio">
+                    <span class="checkmark"></span></label>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div id="prev"> <button class="btn btn-primary">Previous</button> </div>
+            <div class="ml-auto mr-sm-5"> <button class="btn btn-success">Next</button> </div>
+        </div>
+    </div>
 
-    <a href="{{ path('app_quizz_new') }}">Create new</a>
+    {# <h1 class="color text-center mt-4 mb-3">Résultat du quiz</h1>
+    <p class="text-end"><a href="{{ path('app_section_show' , { 'id' : section}) }}">Retour à la section</a></p>
+    <section class="response-quizz">
+
+        <div>
+            <div class="row">
+                <div class="col-xs-12 mt-1 mb-1">
+                    <h4 class="text-center text-decoration-underline"> Question 1</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p><strong> {{ quiz.question1 }}</strong></p>
+                </div>
+            </div>
+            <div class="row">
+                {% if quizApprenant.response1 == quizInstructeur.response1 %}
+                    <div class="col-xs-12">
+                    <p><strong class="color">Bravo !</strong> Vous avez répondu correctement, la bonne réponse est
+                        {% if  quizInstructeur.response1 == true %} <strong> Vrais</strong>
+                        {% else %}<strong>Faux</strong>
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <p><strong class="color-red">Dommage !</strong> Vous n'avez pas répondu correctement, la bonne
+                        réponse est
+                        {% if  quizInstructeur.response1 == true %} <strong> Vrais </strong>
+                        {% else %} <strong> Faux </strong>
+                        {% endif %}
+                    </p>
+                    </div>
+                {% endif %}
+            </div>
+            {% if  quizInstructeur.notgood1 is defined and quizInstructeur.notgood1 is not null %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p><strong>Explication :</strong> {{ quizInstructeur.notgood1 }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
+            <div class="row">
+                <div class="col-xs-12 mt-1 mb-1">
+                    <h4 class="text-center text-decoration-underline"> Question 2</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p><strong> {{ quizApprenant.question2 }}</strong></p>
+                </div>
+            </div>
+            <div class="row">
+                {% if quizApprenant.response2 == quizInstructeur.response2 %}
+                    <div class="col-xs-12">
+                    <p><strong class="color">Bravo !</strong> Vous avez répondu correctement, la bonne réponse est
+                        {% if  quizInstructeur.response2 == true %} <strong> Vrais</strong>
+                        {% else %}<strong>Faux</strong>
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <p><strong class="color-red">Dommage !</strong> Vous n'avez pas répondu correctement, la bonne
+                        réponse est
+                        {% if  quizInstructeur.response2 == true %} <strong> Vrais </strong>
+                        {% else %} <strong> Faux </strong>
+                        {% endif %}
+                    </p>
+                    </div>
+                {% endif %}
+            </div>
+            {% if  quizInstructeur.notgood2 is defined and quizInstructeur.notgood2 is not null %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p><strong>Explication :</strong> {{ quizInstructeur.notgood2 }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
+            <div class="row">
+                <div class="col-xs-12 mt-1 mb-1">
+                    <h4 class="text-center text-decoration-underline"> Question 3</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p><strong> {{ quizApprenant.question3 }}</strong></p>
+                </div>
+            </div>
+            <div class="row">
+                {% if quizApprenant.response3 == quizInstructeur.response3 %}
+                    <div class="col-xs-12">
+                    <p><strong class="color">Bravo !</strong> Vous avez répondu correctement, la bonne réponse est
+                        {% if  quizInstructeur.response3 == true %} <strong> Vrais</strong>
+                        {% else %}<strong>Faux</strong>
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <p><strong class="color-red">Dommage !</strong> Vous n'avez pas répondu correctement, la bonne
+                        réponse est
+                        {% if  quizInstructeur.response3 == true %} <strong> Vrais </strong>
+                        {% else %} <strong> Faux </strong>
+                        {% endif %}
+                    </p>
+                    </div>
+                {% endif %}
+            </div>
+            {% if  quizInstructeur.notgood3 is defined and quizInstructeur.notgood3 is not null %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p><strong>Explication :</strong> {{ quizInstructeur.notgood3 }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+
+    </section>
+#}
 {% endblock %}
