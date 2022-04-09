@@ -1,4 +1,4 @@
-// Seacr Bar index formation
+// Search Bar index formation
 
 $(document).ready(function () {
     $("#searchbar").on("keyup", function () {
@@ -9,4 +9,5 @@ $(document).ready(function () {
     });
 });
 
-//
+// check box
+

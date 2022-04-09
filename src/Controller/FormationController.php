@@ -6,7 +6,9 @@ use App\Entity\formation;
 use App\Form\FormationType;
 use App\Repository\formationRepository;
 use App\Repository\SectionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +17,9 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/formation')]
 class FormationController extends AbstractController
 {
+    private EntityManagerInterface $entityManager;
+
+
     #[Route('/index', name: 'app_formation_index', methods: ['GET'])]
     public function index(formationRepository $formationRepository): Response
     {
@@ -23,13 +28,14 @@ class FormationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_formation_new', methods: ['GET'])]
     public function new(Request $request, formationRepository $formationRepository): Response
     {
+        if($this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
+            return $this->redirectToRoute('app_homepage');
+        }
 
         $formation = new formation();
-        /* La personne qui creer une formation est la personne connecte */
-        $formation->setUser($this->getUser());
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
 
@@ -39,34 +45,31 @@ class FormationController extends AbstractController
             $formationPicture = $form->get('picture')->getData();
 
             if ($formationPicture) {
-                $newFilename = uniqid() . '.' . $formationPicture->guessExtension();
-
+                $newFilename = uniqid().'.'.$formationPicture->guessExtension();
                 // Move the file to the directory where brochures are stored
                 try {
                     $formationPicture->move(
-                        $this->getParameter('kernel.project_dir') . '/public/formation',
+                        $this->getParameter('kernel.project_dir') . '/public/Formation',
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    $this->addFlash('error', 'Vous n\avez pas rempli le formulaire correctement.  ');
+                    $this->addFlash('error' , 'Vous n\avez pas rempli le formulaire correctement.  ');
                 }
-
-
                 $formation->setPicture($newFilename);
             }
             $formationRepository->add($formation);
 
             return $this->redirectToRoute('app_section_new', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('formation/new.html.twig', [
             'formation' => $formation,
             'form' => $form,
         ]);
     }
 
-        #[Route('/{id}', name: 'app_formation_show', methods: ['GET'])]
-        public function show(Formation $formation , SectionRepository $SectionRepository , $id, ): Response
+
+    #[Route('/{id}', name: 'app_formation_show', methods: ['GET','POST'])]
+    public function show(Formation $formation , SectionRepository $SectionRepository , $id, ): Response
     {
         if ($this->getUser() == null){
             $this->addFlash('user_obligation', 'Vous devez vous créer un compte pour pouvoir accéder aux formations.');
@@ -80,6 +83,7 @@ class FormationController extends AbstractController
             'sectionsFormation' => $sectionFormation,
         ]);
     }
+
 
 
      #[Route('/{id}/edit', name:'app_formation_edit', methods: ['GET', 'POST'])]
