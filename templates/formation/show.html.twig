@@ -29,19 +29,20 @@
                 <p class="description">{{ sectionFormation.name }}</p>
                 <a href="{{ path('app_section_show', {'id': sectionFormation.id }) }}" class="btn btn-primary" >Acceder au cours</a>
                 <a href="{{ path('app_quizz_edit', {'id' : sectionFormation.id }) }}" class="btn btn-secondary">Quiz</a>
+                {% if is_granted('ROLE_INSTRUCTEUR') != false %}
                 <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-secondary">Modification</a>
                 {{ include('formation/_delete_form.html.twig') }}
+                {% endif %}
             </div>
             {% endfor %}
 
-
-    {% if sectionsFormation == [] %}
-        <div class="row mt-2">
-            <div class="col d-flex justify-content-center alert alert-secondary">
-                <p>Il n'y a pas encore de section de créer pour cette formation, mais revient vite, l'instructeur doit être en train de la préparer...</p>
-            </div>
-        </div>
-    {% endif %}
+             {% if sectionsFormation == [] %}
+                 <div class="row mt-2">
+                     <div class="col d-flex justify-content-center alert alert-secondary">
+                        <p>Il n'y a pas encore de section de créer pour cette formation, mais revient vite, l'instructeur doit être en train de la préparer...</p>
+                     </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 

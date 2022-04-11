@@ -36,6 +36,9 @@ class lesson
     #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'lesson')]
     private $progress;
 
+    #[ORM\ManyToOne(targetEntity: user::class, inversedBy: 'lessons')]
+    private $user;
+
     public function __construct()
     {
         $this->progress = new ArrayCollection();
@@ -141,6 +144,18 @@ class lesson
         if ($this->progress->removeElement($progress)) {
             $progress->removeLesson($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

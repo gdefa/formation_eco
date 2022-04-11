@@ -9,8 +9,6 @@
 
 
 
-<h1 class="text-center mt-3  color">{{ lesson.title }}</h1>
-
 
     <div class="container">
         <div class="col-md-3 d-none">
@@ -25,14 +23,21 @@
                     <h4>Contenue de formation </h4>
                     <p class="card-text text-center">{{ lesson.content }}</p>
                     <div class="mt-5 mb-5 justify-content-center d-none d-lg-block">
-                        <h4>Video complémentaire</h4>
-                        <iframe width="600" height="355" src="{{ lesson.video }}" title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
+                        <h5>Vidéo tutoriel :</h5>
+                        <div class="formation_lesson_video">
+                            <iframe
+                                    class="formation_lesson_video_iframe"
+                                    width="560"
+                                    height="315"
+                                    src="{{ lesson.video }}"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
-                        <h5>Avez vous terminer votre leçon ?</h5>
-                    {{ form_start(form) }}
+                <div>
+                    {{ form_start(ProgressTypeform) }}
 
                     {{ form_row(form.lessonFinished) }}
 
@@ -40,15 +45,7 @@
 
                     <input type="submit" />
 
-                    {{ form_end(form) }}
-
-                        <div class="form-check ">
-                        <label><input class="form-check-input" type="checkbox" value="" id="isFinished" name="progressType[lessonFinished]">
-                            <label class="form-check-label" for="isFinished">
-                                Terminer
-                            </label>
-                    </div>
-                        {#  <a href="{{ path('app_section_show', {'id': section.id}) }} role=button >Retour a la section</a> #}
+                    {{ form_end(ProgressTypeform) }}
 
                 </div>
             </div>
@@ -57,12 +54,14 @@
             </div>
         </div>
     </div>
-
-
+    {% block javascripts %}
+        <script src="{{ asset('JS/lessonFinishedCheck.js') }}"></script>
+    {% endblock %}
     {% if  lesson.picture   is not null %}
 
+
     {% endif %}
-    </div>
+
 {% endblock %}
 
 

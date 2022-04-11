@@ -65,11 +65,15 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'user')]
     private $progress;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: lesson::class)]
+    private $lessons;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
         $this->quizzs = new ArrayCollection();
         $this->progress = new ArrayCollection();
+        $this->lessons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -301,6 +305,36 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->progress->removeElement($progress)) {
             $progress->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Lesson>
+     */
+    public function getLessons(): Collection
+    {
+        return $this->lessons;
+    }
+
+    public function addLesson(Lesson $lesson): self
+    {
+        if (!$this->lessons->contains($lesson)) {
+            $this->lessons[] = $lesson;
+            $lesson->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): self
+    {
+        if ($this->lessons->removeElement($lesson)) {
+            // set the owning side to null (unless already changed)
+            if ($lesson->getUser() === $this) {
+                $lesson->setUser(null);
+            }
         }
 
         return $this;

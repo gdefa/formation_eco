@@ -2,15 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\formation;
 use App\Entity\lesson;
 use App\Entity\Progress;
-use App\Entity\user;
 use App\Form\LessonType;
 use App\Form\ProgressType;
-use App\Form\RegistrationFormType;
+use App\Repository\formationRepository;
 use App\Repository\LessonRepository;
 use App\Repository\ProgressRepository;
+use App\Repository\SectionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -69,47 +68,96 @@ class LessonController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_lesson_show', methods: ['GET'])]
-    public function show( request $request, lesson $lesson, progress $progress, user $user, formation $formation, progressRepository $progressRepository): Response
+    public function show( Lesson $lesson, Request $request, $id, progress $progress, ProgressRepository $progressRepository, SectionRepository $sectionRepository, FormationRepository $formationRepository): Response
     {
-        if ($this->getUser() == null) {
-            return $this->redirectToRoute('app_homepage');
-        }
 
         $section = $lesson->getSection()->getId();
+
         $user = $this->getUser()->getRoles()[0];
 
-        $progress->setLessonFinished(false);
+
+
+        $formation = $sectionRepository->findOneBy(['id' => $section])->getFormation();
 
         $progress = new Progress();
         $formProgress = $this->createForm(ProgressType::class, $progress);
         $formProgress->handleRequest($request);
+
         $progress->setUser($this->getUser());
         $progress->setLesson($lesson);
         $progress->setFormation($formation);
+        $progress->setLessonFinished(true);
         $progress->setFormationProgress($formation->getId());
 
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            $progress->setLessonFinished(true);
-            $progressRepository->add($progress);
-
+        #
+        if ($progressRepository->findBy(['user' => ['id' => $this->getUser()->getId()], 'formation' => ['id' => $formation->getId()]]) == null) {
+            $progress->setFormationProgress(null);
         }
+
+        # Mettre en place la validation d'une formation
+
+        # Récupérer l'id de la formation
+        $idformation = $formation->getId();
+        #  Récupère toutes les section de la formation
+        $sectionFormation = $sectionRepository->findBy(['formation' => ['id' => $idformation]]);
+        $lessons = [];
+        # Pour chaque section, récupère les leçon
+        foreach ($sectionFormation as $sections) {
+            $lessons [] = $sections->getLessons()->getValues();
+        }
+
+        # Pour chaque section, récupère le nombre de leçons
+        $nombrelesson = 0;
+        foreach ($lessons as $value) {
+            $nombrelesson += count($value);
+        }
+
+        # Récupère toute les ligne du tableau de l'user avec la formation
+        $Userlessons = $progressRepository->findBy(['user' => $this->getUser(), 'formation' => ['id' => $idformation]]);
+
+
 
         if ($formProgress->isSubmitted() && $formProgress->isValid()) {
             # si l'utilisateur a déjà terminer la leçon alors on ne rajoute pas de nouvelle ligne en bdd
             if ($progressRepository->findOneBy(['user' => ['id' => $this->getUser()->getId()]]) !== null) {
                 if ($progressRepository->findBy(['lesson' => ['id' => $lesson->getId()], 'user' => ['id' => $this->getUser()->getId()]]) !== []) {
-                    return $this->redirectToRoute('app_section_show', ['id' => $section], Response::HTTP_SEE_OTHER);
+                    return $this->redirectToRoute('liste_lesson', ['id' => $section], Response::HTTP_SEE_OTHER);
                 }
             }
             $progressRepository->add($progress);
-            return $this->redirectToRoute('liste_lesson', ['id' => $section], Response::HTTP_SEE_OTHER);
+
+            if (count($Userlessons) + 1 == $nombrelesson ){
+
+                //  Modifier la ligne de la première leçon correspondante a la formation, afin de faciliter le filtrage des formations en cours / fini
+                $formationFinished = new Progress();
+                $formProgress = $this->createForm(ProgressType::class, $formationFinished);
+                $formProgress->handleRequest($request);
+                $formationFinished->setUser($this->getUser());
+                $formationFinished->setFormation($formation);
+                $formationFinished->setFormationFinished(true);
+                $progressRepository->add($formationFinished);
+
+                $firstLesson = $progressRepository->findOneBy(['user' => ['id' => $this->getUser()->getId()],'formation' => ['id' => $idformation], 'formation_progress' => null]);
+                $firstLesson->setFormationProgress($formation->getId());
+                $progressRepository->add($firstLesson);
+
+            }
+
+            return $this->redirectToRoute('app_formation_index', ['id' => $formation], Response::HTTP_SEE_OTHER);
+
+
         }
+
+        $lessonFinish = $progressRepository->findOneBy(['user' => $this->getUser(), 'lesson' => $lesson->getId()]);
+
 
         return $this->render('lesson/show.html.twig', [
             'lesson' => $lesson,
-            'section' =>$section,
-            'progress' =>$progress,
+            'section' => $section,
+            'user' => $user,
+            'formProgress' => $formProgress->createView(),
+            'lessonFinish' => $lessonFinish
         ]);
     }
 

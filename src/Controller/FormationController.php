@@ -27,12 +27,13 @@ class FormationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_formation_new', methods: ['GET'])]
+    #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, formationRepository $formationRepository): Response
     {
-        if($this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
+        if( $this->getUser() == null || $this->getUser()->getRoles() == ['ROLE_APPRENANT']){
             return $this->redirectToRoute('app_homepage');
         }
+
 
         $formation = new formation();
         $form = $this->createForm(FormationType::class, $formation);
@@ -88,7 +89,7 @@ class FormationController extends AbstractController
      #[Route('/{id}/edit', name:'app_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Formation $formation, FormationRepository $formationRepository, $id): Response
     {
-        if($this->getUser() == null){
+        if( $this->getUser() == null || $this->getUser()->getRoles() == ['ROLE_APPRENANT']){
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -131,9 +132,10 @@ class FormationController extends AbstractController
     #[Route('/{id}', name: 'app_formation_delete', methods: ['POST'])]
     public function delete(Request $request, formation $formation, formationRepository $formationRepository): Response
     {
-        if( $this->getUser() == null || $this->getUser()->getRoles() !== ['ROLE_INSTRUCTEUR']){
+        if( $this->getUser() == null || $this->getUser()->getRoles() == ['ROLE_APPRENANT']){
             return $this->redirectToRoute('app_homepage');
         }
+
         if ($this->isCsrfTokenValid('delete'.$formation->getId(), $request->request->get('_token'))) {
             $formationRepository->remove($formation);
         }

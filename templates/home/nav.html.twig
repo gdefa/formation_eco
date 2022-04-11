@@ -14,14 +14,14 @@
                         <a class="nav-link" href={{ path('app_formation_index') }}>Accès aux formations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href={{ path('app_section_index') }}>Accès aux sections</a>
+                        <a class="nav-link" href={{ path('app_section_index') }}>A propos de nous</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ">A propos de nous</a>
+                        <a class="nav-link ">Contact</a>
                     </li>
                     <li class="nav-item">
                     {% if is_granted('ROLE_ADMIN')%}
-                        <a class="nav-link href={{ path('app_admin')}}">Administrateur</a>
+                        <a class="nav-link href={{ path('admin')}}">Administrateur</a>
                     {% endif %}
                     </li>
                     <li class="nav-item">
@@ -34,7 +34,7 @@
                         Instructeur menu
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="{{ path('app_formation_new') }}path">Creer une nouvelle formation</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_formation_new') }}">Creer une nouvelle formation</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_section_new') }}">Creer une nouvelle section</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_lesson_new') }}">Creer une nouvelle leçon</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_quizz_new') }}">Creer un nouveau quiz</a></li>
