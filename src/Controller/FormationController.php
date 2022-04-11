@@ -19,7 +19,6 @@ class FormationController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
-
     #[Route('/index', name: 'app_formation_index', methods: ['GET'])]
     public function index(formationRepository $formationRepository): Response
     {

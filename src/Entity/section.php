@@ -33,14 +33,12 @@ class section
     #[ORM\Column(type: 'boolean')]
     private $isFinished;
 
-    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'section')]
-    private $progress;
+
 
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
         $this->quizzs = new ArrayCollection();
-        $this->progress = new ArrayCollection();
     }
 
     public function getId(): ?int

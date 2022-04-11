@@ -32,8 +32,18 @@
                         </iframe>
                     </div>
                         <h5>Avez vous terminer votre leçon ?</h5>
+                    {{ form_start(form) }}
+
+                    {{ form_row(form.lessonFinished) }}
+
+                    {{ form_rest(form) }}
+
+                    <input type="submit" />
+
+                    {{ form_end(form) }}
+
                         <div class="form-check ">
-                        <label><input class="form-check-input" type="checkbox" value="" id="isFinished" name="progress_form[lessonFinished]">
+                        <label><input class="form-check-input" type="checkbox" value="" id="isFinished" name="progressType[lessonFinished]">
                             <label class="form-check-label" for="isFinished">
                                 Terminer
                             </label>
