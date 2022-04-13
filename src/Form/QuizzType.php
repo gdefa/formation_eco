@@ -30,11 +30,7 @@ class QuizzType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('responseInstructeur', null, [
-                'mapped' => false,
-                'label' => 'Reponse instructeur :'
 
-            ])
             ->add('question2', TextType::class, [
                 'label' => 'Question n°2'
             ])
@@ -47,10 +43,7 @@ class QuizzType extends AbstractType
                 'expanded' => true,
                 'multiple' => false
             ])
-            ->add('responseInstructeur2', null, [
-                'mapped' => false,
-                'label' => 'Response instructeur :'
-            ])
+
             ->add('question3', TextType::class, [
                 'label' => 'Question n°3'
             ])
@@ -63,10 +56,7 @@ class QuizzType extends AbstractType
                 'expanded' => true,
                 'multiple' => false
             ])
-            ->add('responseInstructeur3', null, [
-                'mapped' => false,
-                'label' => 'Réponse instructeur :'
-            ])
+
         ;
     }
 

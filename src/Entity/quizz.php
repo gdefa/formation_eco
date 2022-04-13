@@ -41,17 +41,6 @@ class quizz
     #[ORM\Column (type: 'boolean')]
     private $answer3;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $responseInstructeur;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $responseInstructeur2;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $responseInstructeur3;
-
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -165,39 +154,5 @@ class quizz
         return $this;
     }
 
-    public function getResponsefault(): ?string
-    {
-        return $this->responsefault;
-    }
 
-    public function setResponsefault(string $responsefault): self
-    {
-        $this->responsefault = $responsefault;
-
-        return $this;
-    }
-
-    public function getResponseInstructeur2(): ?string
-    {
-        return $this->responseInstructeur2;
-    }
-
-    public function setResponseInstructeur2(?string $responseInstructeur2): self
-    {
-        $this->responseInstructeur2 = $responseInstructeur2;
-
-        return $this;
-    }
-
-    public function getResponseInstructeur3(): ?string
-    {
-        return $this->responseInstructeur3;
-    }
-
-    public function setResponseInstructeur3(?string $responseInstructeur3): self
-    {
-        $this->responseInstructeur3 = $responseInstructeur3;
-
-        return $this;
-    }
 }
