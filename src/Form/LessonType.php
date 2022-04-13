@@ -33,6 +33,7 @@ class LessonType extends AbstractType
                 ],
             ])
             ->add('section')
+            ->add('isFinished')
         ;
     }
 

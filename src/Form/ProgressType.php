@@ -12,11 +12,7 @@ class ProgressType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('lessonFinished', CheckboxType::class, [
-                'label' => 'Avez vous terminer cette leçon ?',
-                'required' => false,
-            ]
-        );
+        $builder->add('lessonFinished');
     }
 
         public function configureOptions(OptionsResolver $resolver): void
