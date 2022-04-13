@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LessonController extends AbstractController
 {
     #[Route('/index', name: 'app_lesson_index', methods: ['GET'])]
-    public function index(LessonRepository $lessonRepository): Response
+    public function index(LessonRepository $LessonRepository): Response
     {
         return $this->render('lesson/index.html.twig', [
             'lessons' => $lessonRepository->findAll(),
@@ -68,40 +68,37 @@ class LessonController extends AbstractController
         ]);
     }
 
-    /**
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\ORMException
-     */
+
     #[Route('/{id}', name: 'app_lesson_show', methods: ['GET'])]
-    public function show(Lesson $lesson, Request $request, SectionRepository $sectionRepository, FormationRepository $formationRepository, progress $progress, progressrepository $progressRepository): Response
+    public function show(lesson $lesson, Request $request, SectionRepository $sectionRepository, formationRepository $formationRepository): Response
     {
 
         $section = $lesson->getSection()->getId();
 
-        $formation = $sectionRepository->findOneBy(['id' => $section])->getFormation();
+        #$formation = $sectionRepository->findOneBy(['id' => $section])->getFormation();
 
 
-        $progressFinish = new Progress();
-        $form = $this->createForm(ProgressType::class, $progressFinish);
-        $form->handleRequest($request);
+        {#$progress = new Progress();
+        #$form = $this->createForm(ProgressType::class, $progress);
+        #$form->handleRequest($request);
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
+       #if ($form->isSubmitted() && $form->isValid()) {
 
-        $progressFinish->setLesson($lesson);
-        $progressFinish->setFormation($formation);
-        $progressFinish->setUser($this->getUser());
-        $progressFinish->setLessonFinished(true);
-        $progressFinish->setFormationFinished($formation->getId());
-        $progressRepository->add($progressFinish);
-        }
+        #$progress->setLesson($lesson);
+        #$progress->setFormation($formation)
+        #$progress->setUser($this->getUser());
+        #$progress->setLessonFinished(true);
+        #$progress->setFormationFinished($formation->getId());
+        #$progressRepository->add($progress);
+        }#}
 
 
         return $this->render('lesson/show.html.twig', [
             'lesson' => $lesson,
             'section' => $section,
-            'user' => $user,
-            'form' => $form->createView(),
+            #'progress' =>$progress,
+            #'form' => $form->createView(),
         ]);
     }
 
