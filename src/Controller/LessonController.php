@@ -10,6 +10,7 @@ use App\Repository\formationRepository;
 use App\Repository\LessonRepository;
 use App\Repository\ProgressRepository;
 use App\Repository\SectionRepository;
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -71,8 +72,8 @@ class LessonController extends AbstractController
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\ORMException
      */
-    #[Route('/{slug}', name: 'app_lesson_show', methods: ['GET'])]
-    public function show(string $slug, Lesson $lesson, Request $request, $id, SectionRepository $sectionRepository, FormationRepository $formationRepository, progress $progress, progressrepository $progressRepository): Response
+    #[Route('/{id}', name: 'app_lesson_show', methods: ['GET'])]
+    public function show(Lesson $lesson, Request $request, SectionRepository $sectionRepository, FormationRepository $formationRepository, progress $progress, progressrepository $progressRepository): Response
     {
 
         $section = $lesson->getSection()->getId();
@@ -80,18 +81,19 @@ class LessonController extends AbstractController
         $formation = $sectionRepository->findOneBy(['id' => $section])->getFormation();
 
 
-        $user = $this->getUser();
-
-        $progress = new progress();
-        $form = $this->createForm(ProgressType::class, $lesson);
+        $progressFinish = new Progress();
+        $form = $this->createForm(ProgressType::class, $progressFinish);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user = $this->getUser();
-            $progress->setLessonFinished(true);
-
-            $progressRepository->add($progress);
+        $progressFinish->setLesson($lesson);
+        $progressFinish->setFormation($formation);
+        $progressFinish->setUser($this->getUser());
+        $progressFinish->setLessonFinished(true);
+        $progressFinish->setFormationFinished($formation->getId());
+        $progressRepository->add($progressFinish);
         }
 
 
