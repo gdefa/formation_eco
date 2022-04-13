@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/progress')]
 class ProgressController extends AbstractController
 {
-    #[Route('/', name: 'app_progress_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_progress_index', methods: ['GET', 'POST'])]
     public function index(ProgressRepository $progressRepository): Response
     {
         return $this->render('progress/index.html.twig', [
@@ -21,8 +21,7 @@ class ProgressController extends AbstractController
         ]);
     }
 
-
-    #[Route('/new', name: 'app_progress_new', methods: ['GET', 'POST'])]
+    #[Route('/new/progression', name: 'app_progress_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProgressRepository $progressRepository, progress $progress): Response
     {
         $progress = new Progress();
@@ -41,16 +40,16 @@ class ProgressController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_progress_show', methods: ['GET'])]
-    public function show(Progress $progress): Response
+    #[Route('/{slug}/show', name: 'app_progress_show', methods: ['GET', 'POST'])]
+    public function show(string $slug, Progress $progress): Response
     {
         return $this->render('progress/show.html.twig', [
             'progress' => $progress,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_progress_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Progress $progress, ProgressRepository $progressRepository): Response
+    #[Route('/{slug}/edit/progression', name: 'app_progress_edit', methods: ['GET', 'POST'])]
+    public function edit(string $slug, Request $request, Progress $progress, ProgressRepository $progressRepository): Response
     {
         $form = $this->createForm(ProgressType::class, $progress);
         $form->handleRequest($request);
@@ -66,8 +65,8 @@ class ProgressController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_progress_delete', methods: ['POST'])]
-    public function delete(Request $request, Progress $progress, ProgressRepository $progressRepository): Response
+    #[Route('/{slug}/delete', name: 'app_progress_delete', methods: ['POST'])]
+    public function delete(string $slug, Request $request, Progress $progress, ProgressRepository $progressRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$progress->getId(), $request->request->get('_token'))) {
             $progressRepository->remove($progress);

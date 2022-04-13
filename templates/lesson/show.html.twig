@@ -8,8 +8,6 @@
 {% block body %}
 
 
-
-
     <div class="container">
         <div class="col-md-3 d-none">
         </div>
@@ -37,15 +35,15 @@
                         </div>
                     </div>
                 <div>
-                    {{ form_start(ProgressTypeform) }}
+                    {{ form_start(form) }}
 
-                    {{ form_row(form.lessonFinished) }}
+                    {{ form_row(form.isFinished,
+                        { label : 'Avez-vous fini votre leçon ? '}) }}
+                    <div class="mb-3">
+                        <button class="btn btn-primary d-block w-100" type="submit" style="color: var(--bs-white);background: #cda67a;">Oui</button>
+                    </div>
 
-                    {{ form_rest(form) }}
-
-                    <input type="submit" />
-
-                    {{ form_end(ProgressTypeform) }}
+                    {{ form_end(form, {render_rest: false}) }}
 
                 </div>
             </div>
@@ -55,12 +53,8 @@
         </div>
     </div>
     {% block javascripts %}
-        <script src="{{ asset('JS/lessonFinishedCheck.js') }}"></script>
+
     {% endblock %}
-    {% if  lesson.picture   is not null %}
-
-
-    {% endif %}
 
 {% endblock %}
 
