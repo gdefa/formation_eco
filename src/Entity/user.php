@@ -62,7 +62,7 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: quizz::class)]
     private $quizzs;
 
-    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'user')]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Progress::class)]
     private $progress;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: lesson::class)]

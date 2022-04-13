@@ -33,7 +33,7 @@ class formation
     #[ORM\Column(type: 'boolean')]
     private $isFinished;
 
-    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'formation')]
+    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: Progress::class)]
     private $progress;
 
     public function __construct()

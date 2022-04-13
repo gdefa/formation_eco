@@ -33,11 +33,14 @@ class lesson
     #[ORM\Column(type: 'boolean')]
     private $isFinished;
 
-    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'lesson')]
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Progress::class)]
     private $progress;
 
     #[ORM\ManyToOne(targetEntity: user::class, inversedBy: 'lessons')]
     private $user;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
     public function __construct()
     {
@@ -156,6 +159,18 @@ class lesson
     public function setUser(?user $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
