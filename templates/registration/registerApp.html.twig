@@ -2,17 +2,18 @@
 
 
 {% block title %}S'inscrire{% endblock %}
-
+{% block header %}
+{% endblock %}
 {% block body %}
 <div class="container">
-    <div class="row align-items-center">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-4 d-flex justify-content-center">
+    <div class="row mt-5 justify-content-center">
+
+        <div class="col-5 ">
             <h2>
                 INSCRIPTION APPRENANT
             </h2>
-        </div>
-        <div class="col-xs-6">
+
+
             {{ form_start(registrationForm , {
                 'attr' : {'class' :  'mb-3 mt-3 font-weight-bold text-uppercase ' ,}
             }) }}
@@ -28,13 +29,14 @@
                 label: 'Pseudo :',
                 'attr': {'class': 'mb-3'}
             }) }}
-            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="color: var(--bs-white);background: #cda67a;">S&#39;inscrire</button></div>
+            <div class="mb-3">
+                <button class="btn btn-success d-block w-100" type="submit" style="color: #ffffff; background: rgb(71,66,65);">S&#39;inscrire</button>
 
-        </div>
+
         {{ form_end(registrationForm) }}
-        </div>
+
         </form>
-        <div class="col-xs-1"></div>
+        </div>
     </div>
 </div>
 {% endblock %}
