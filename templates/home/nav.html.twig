@@ -1,10 +1,10 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color:#CDA67A" >
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_homepage') }}">ECOIT</a>
+            <a class="navbar-brand" href="{{ path('app_homepage') }}"><img src="{{ asset('images/logo.jpg') }}" width="75px" height="75px"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" >
-                <span class="">
-                    <img src="{{ asset('images/logo.png') }}" width="75px" height="75px">
+                <span class="navbar-toggler-icon">
+
                 </span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -23,7 +23,7 @@
                     </li>
                     <li class="nav-item">
                     {% if is_granted('ROLE_ADMIN')%}
-                        <a class="nav-link href={{ path('app_formation_index')}}">Administrateur</a>
+                        <a href={{ path('app_admin')}} class="nav-link">Administrateur</a>
                     {% endif %}
                     </li>
                     <li class="nav-item">

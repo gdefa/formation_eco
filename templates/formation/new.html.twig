@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Formation{% endblock %}
-
+{% block title %}Nouvelle formation{% endblock %}
+{% block header %}
+{% endblock %}
 {% block body %}
-    <h1>Créer une nouvelle formation</h1>
+    <div class="text-center mt-3">
+        <h1>Créer une nouvelle formation</h1>
+    </div>
+
 
     {{ include('formation/_form.html.twig') }}
+    <div class="text-center">
+        <a href="{{ path('app_formation_index') }} ">Retour à la liste</a>
+    </div>
 
-    <a href="{{ path('app_formation_index') }}">Retour a la liste</a>
 {% endblock %}

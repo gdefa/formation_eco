@@ -73,7 +73,7 @@ class FormationController extends AbstractController
     {
         if ($this->getUser() == null){
             $this->addFlash('user_obligation', 'Vous devez vous créer un compte pour pouvoir accéder aux formations.');
-            return $this->redirectToRoute('app_register_apprenant');
+            return $this->redirectToRoute('login');
         }
 
         $sectionFormation = $SectionRepository->findBy(['formation' => ['id'=> $id]]);

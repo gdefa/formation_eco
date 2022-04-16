@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-2">
-            <a href="{{ path('app_formation_index') }}" class="btn btn-info d-flex justify-content-sm-start" role="button">Retour à la liste des formations</a>
+            <a href="{{ path('app_formation_index') }}" class="btn btn-success mt-3 d-flex justify-content-sm-start" role="button">Retour à la liste des formations</a>
         </div>
         <div class="col-sm-10"></div>
     </div>
@@ -28,7 +28,7 @@
                     <strong>{{ lessonSection.title }}</strong>
                 </h3>
                 {# <img class="img-thumbnail" src="{{ asset('lesson/' ~  lesson.picture ) }}" alt="lesson image">#}
-                <a href="{{ path('app_lesson_show', {'id': lessonSection.id }) }}" class="btn btn-primary" >Acceder au cours</a>
+                <a href="{{ path('app_lesson_show', {'id': lessonSection.id }) }}" class="btn btn-success" >Acceder au cours</a>
                 {% if lessonSection == [] %}
                     <div class="row mt-2">
                         <div class="col d-flex justify-content-center alert alert-secondary">

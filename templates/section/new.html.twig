@@ -5,9 +5,14 @@
 {% block header %}
 {% endblock %}
 {% block body %}
-    <h1>Création d'une nouvelle section</h1>
+    <div class="text-center mt-3">
+        <h1>Création d'une nouvelle section</h1>
+    </div>
+
 
     {{ include('section/_form.html.twig') }}
+    <div class="text-center">
+        <a href="{{ path('app_homepage') }}">Retour accueil</a>
+    </div>
 
-    <a href="{{ path('app_section_index') }}">Retour a la liste</a>
 {% endblock %}

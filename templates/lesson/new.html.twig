@@ -5,9 +5,11 @@
 {% block header %}
 {% endblock %}
 {% block body %}
-    <h1>Creer une nouvelle leçon</h1>
-
-    {{ include('lesson/_form.html.twig') }}
-
-    <a href="{{ path('app_lesson_index') }}">back to list</a>
+    <div class="text-center mt-3">
+        <h1>Creer une nouvelle leçon</h1>
+    </div>
+        {{ include('lesson/_form.html.twig') }}
+    <div class="text-center">
+        <a href="{{ path('app_homepage') }}">Retour page d'accueil</a>
+    <div class="text-center">
 {% endblock %}

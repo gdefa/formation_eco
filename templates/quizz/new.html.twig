@@ -6,9 +6,14 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Create new Quizz</h1>
+    <div class="text-center">
+        <h1>Création d'un nouveau quiz</h1>
+    </div>
+
 
     {{ include('quizz/_form.html.twig') }}
+    <div class="text-center">
+        <a href="{{ path('app_homepage') }}">Retour accueil</a>
+    </div>
 
-    <a href="{{ path('app_quizz_index') }}">back to list</a>
 {% endblock %}
