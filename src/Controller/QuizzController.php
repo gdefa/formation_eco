@@ -39,7 +39,7 @@ class QuizzController extends AbstractController
     #[Route('/new', name: 'app_quizz_new', methods: ['GET', 'POST'])]
     public function new(Request $request, QuizzRepository $quizzRepository, EntityManagerInterface $entityManager, SectionRepository $sectionRepository): Response
     {
-        if ($this->getUser() == null) {
+        if( $this->getUser()->getIsAccepted() == false || $this->getUser()->getRoles() == ['ROLE_APPRENANT'] ){
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -52,7 +52,7 @@ class QuizzController extends AbstractController
             $entityManager->persist($quizz);
             $entityManager->flush();
             $this->addFlash('quizz-valid', 'Vous venez de créer un Quiz pour la section.');
-            return $this->redirectToRoute('app_lesson_index');
+            return $this->redirectToRoute('app_formation_index');
         }
 
         return $this->renderForm('quizz/new.html.twig', [
@@ -64,8 +64,8 @@ class QuizzController extends AbstractController
     #[Route('/{id}', name: 'app_quizz_show', methods: ['GET'])]
     public function ResponseApprenant(Request $request, EntityManagerInterface $entityManager, $id, QuizzRepository $quizzRepository, SectionRepository $sectionRepository): Response
     {
+
         if ($quizzRepository->findBy(['section' => ['id' => $id]]) == []) {
-            $this->addFlash('questionnaire-null', 'Il n\'y a pas de quiz pour le moment, mais revient vite, l\'instructeur est sûrement en train de l\'écrire.');
             return $this->redirectToRoute('app_section_show', ['id' => $id]);
         }
 
@@ -73,7 +73,7 @@ class QuizzController extends AbstractController
             return $this->redirectToRoute('app_quiz_index', ['id' => $id, 'app' => $this->getUser()->getId()]);
         }
 
-
+        #Recherche du quiz liée a une section
         $quizz = $quizzRepository->findOneBy(['section' => ['id' => $id]]);
 
         $sectionid = $quizz->getSection()->getId();
@@ -81,17 +81,17 @@ class QuizzController extends AbstractController
         $sectionTitle = $sectionRepository->findOneBy(['id' => $sectionid])->getTitle();
 
 
-        $question1 = $quizz->getQuestion1();
+        $question1 = $quizz->getQuestion();
         $question2 = $quizz->getQuestion2();
         $question3 = $quizz->getQuestion3();
 
 
         $responseQuiz = new Quizz();
-        $form = $this->createForm(QuizApprenantType::class, $responseQuiz);
+        $form = $this->createForm(QuizzAppType::class, $responseQuiz);
         $form->handleRequest($request);
         $responseQuiz->setSection($quizz->getSection());
         $responseQuiz->setUser($this->getUser());
-        $responseQuiz->setQuestion1($question);
+        $responseQuiz->setQuestion($question);
         $responseQuiz->setQuestion2($question2);
         $responseQuiz->setQuestion3($question3);
 
@@ -104,7 +104,7 @@ class QuizzController extends AbstractController
         }
 
         return $this->renderForm('quiz/edit.html.twig', [
-            'quiz' => $quiz,
+            'quiz' => $quizz,
             'form' => $form,
             'q1' => $question1,
             'q2' => $question2,

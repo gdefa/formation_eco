@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\formation;
+use App\Entity\user;
 use App\Form\FormationType;
 use App\Repository\formationRepository;
 use App\Repository\SectionRepository;
@@ -30,11 +31,12 @@ class FormationController extends AbstractController
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, formationRepository $formationRepository): Response
     {
-        if( $this->getUser() == null || $this->getUser()->getRoles() == ['ROLE_APPRENANT']){
+        #Création des permissions d'accès
+        if( $this->getUser()->getIsAccepted() == false || $this->getUser()->getRoles() == ['ROLE_APPRENANT'] ){
             return $this->redirectToRoute('app_homepage');
         }
 
-
+        #Mise en place des formulaires
         $formation = new formation();
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
@@ -71,11 +73,13 @@ class FormationController extends AbstractController
     #[Route('/{id}', name: 'app_formation_show', methods: ['GET','POST'])]
     public function show(Formation $formation , SectionRepository $SectionRepository , $id, ): Response
     {
+        #Création des permissions d'accès
         if ($this->getUser() == null){
             $this->addFlash('user_obligation', 'Vous devez vous créer un compte pour pouvoir accéder aux formations.');
             return $this->redirectToRoute('login');
         }
 
+        #Recherche les sections d'une formation
         $sectionFormation = $SectionRepository->findBy(['formation' => ['id'=> $id]]);
 
         return $this->render('formation/show.html.twig', [
@@ -89,6 +93,7 @@ class FormationController extends AbstractController
      #[Route('/{id}/edit', name:'app_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Formation $formation, FormationRepository $formationRepository, $id): Response
     {
+
         if( $this->getUser() == null || $this->getUser()->getRoles() == ['ROLE_APPRENANT']){
             return $this->redirectToRoute('app_homepage');
         }
@@ -123,6 +128,7 @@ class FormationController extends AbstractController
             return $this->redirectToRoute('app_section_new', [], Response::HTTP_SEE_OTHER);
         }
 
+
         return $this->renderForm('formation/edit.html.twig', [
             'formation' => $formation,
             'form' => $form,
@@ -142,4 +148,7 @@ class FormationController extends AbstractController
 
         return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 }

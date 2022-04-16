@@ -51,6 +51,10 @@ class SectionController extends AbstractController
     #[Route('/new', name: 'app_section_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SectionRepository $sectionRepository): Response
     {
+        #Création des permissions d'accès
+        if( $this->getUser()->getIsAccepted() == false || $this->getUser()->getRoles() == ['ROLE_APPRENANT'] ){
+            return $this->redirectToRoute('app_homepage');
+        }
 
         $section = new section();
         $form = $this->createForm(SectionType::class, $section);
@@ -71,6 +75,7 @@ class SectionController extends AbstractController
     public function show( section $section, lessonRepository $lessonRepository, $id): Response
     {
 
+        #Recherche les lessons d'une section
         $lessonSection = $lessonRepository->findBy(['section' => ['id'=> $id]]);
 
         return $this->render('section/show.html.twig', [

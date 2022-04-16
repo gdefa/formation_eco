@@ -16,9 +16,18 @@ class ProgressController extends AbstractController
     #[Route('/index', name: 'app_progress_index', methods: ['GET', 'POST'])]
     public function index(ProgressRepository $progressRepository): Response
     {
-        return $this->render('progress/index.html.twig', [
-            'progress' => $progressRepository->findAll(),
-        ]);
+
+        if ($this->getUser() !== null) {
+
+            $formationTerminee = $progressRepository->findBy(['user' => ['id' => $this->getUser()->getId()], 'formation_finished' => true]);
+
+            return $this->render('progress/index.html.twig', [
+                'formations' => $formationRepository->findAll(),
+                'formationTerminees' => $formationTerminee,
+                'progress' => $progressRepository->findAll(),
+            ]);
+
+        }
     }
 
     #[Route('/new/progression', name: 'app_progress_new', methods: ['GET', 'POST'])]

@@ -32,6 +32,9 @@ class LessonController extends AbstractController
     #[Route('/new', name: 'app_lesson_new', methods: ['GET', 'POST'])]
     public function new(Request $request, LessonRepository $lessonRepository): Response
     {
+        if( $this->getUser()->getIsAccepted() == false || $this->getUser()->getRoles() == ['ROLE_APPRENANT'] ){
+            return $this->redirectToRoute('app_homepage');
+        }
 
         $lesson = new lesson();
         $form = $this->createForm(LessonType::class, $lesson);
@@ -78,7 +81,8 @@ class LessonController extends AbstractController
         #$formation = $sectionRepository->findOneBy(['id' => $section])->getFormation();
 
 
-        {#$progress = new Progress();
+
+        #$progress = new Progress();
         #$form = $this->createForm(ProgressType::class, $progress);
         #$form->handleRequest($request);
 
@@ -86,12 +90,12 @@ class LessonController extends AbstractController
        #if ($form->isSubmitted() && $form->isValid()) {
 
         #$progress->setLesson($lesson);
-        #$progress->setFormation($formation)
+        #$progress->setFormation($formation);
         #$progress->setUser($this->getUser());
         #$progress->setLessonFinished(true);
         #$progress->setFormationFinished($formation->getId());
         #$progressRepository->add($progress);
-        }#}
+
 
 
         return $this->render('lesson/show.html.twig', [
@@ -99,8 +103,9 @@ class LessonController extends AbstractController
             'section' => $section,
             #'progress' =>$progress,
             #'form' => $form->createView(),
-        ]);
-    }
+            ]);
+        }
+
 
     #[Route('/{id}/edit', name: 'app_lesson_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, lesson $lesson, LessonRepository $lessonRepository): Response
