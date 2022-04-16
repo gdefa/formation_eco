@@ -52,6 +52,32 @@ composer require symfony/web-server-bundle --dev
 php bin/console server:start
 ```
 
+## Utilisateur 
+
+Administrateur 
+```bash
+Email = defa7@live.fr
+mot de passe = guillaume
+```
+
+Instructeur 
+```bash
+Email = instructeur@email.com
+Mot de passe = instructeur
+```
+
+Instructeur non validé
+```bash
+Email = instructeurnotvalid@email.com
+Mot de passe = instrcuteur
+```
+
+Apprenant
+```bash
+Email = apprenant@email.com 
+Mot de passe = apprenant
+```
+
 ## Annexes
 
 La charte graphique, documentation technique et le manuel d'utilisation sont a retrouvez [ici](https://drive.google.com/drive/folders/1LZYU7eOY9Coy8IrXiWNaeVEoQIEWU6Zg?usp=sharing) (Google Drive)
