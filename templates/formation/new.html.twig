@@ -4,6 +4,9 @@
 {% block header %}
 {% endblock %}
 {% block body %}
+    {% if not is_granted('ROLE_INSTRUCTEUR')%}
+        <h5>Votre compte n'est pas encore validé par un administrateur.</h5>
+    {% endif %}
     <div class="text-center mt-3">
         <h1>Créer une nouvelle formation</h1>
     </div>
