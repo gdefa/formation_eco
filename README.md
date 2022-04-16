@@ -69,7 +69,7 @@ Mot de passe = instructeur
 Instructeur non validé
 ```bash
 Email = instructeurnotvalid@email.com
-Mot de passe = instrcuteur
+Mot de passe = instructeur
 ```
 
 Apprenant
