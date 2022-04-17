@@ -17,16 +17,12 @@ class ProgressController extends AbstractController
     public function index(ProgressRepository $progressRepository): Response
     {
 
-        if ($this->getUser() !== null) {
-
-            #$formationFinis = $progressRepository->findBy(['user' => ['id' => $this->getUser()->getId()], 'formation_finished' => true]);
+        #$formationFinis = $progressRepository->findBy(['user' => ['id' => $this->getUser()->getId()], 'formation_finished' => true]);
 
             return $this->render('progress/index.html.twig', [
                 #'formationFinis' => $formationFinis,
-                'progress' => $progressRepository->findAll(),
+               'progress' => $progressRepository->findAll(),
             ]);
 
-        }
     }
-
 }
