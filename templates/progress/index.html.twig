@@ -2,8 +2,29 @@
 
 {% block title %}Progress index{% endblock %}
 
+{% block header %}
+{% endblock %}
+
 {% block body %}
-    <h1>Progress index</h1>
+
+    <div class="container mt-5" style="max-width: 800px">
+        <div class="row">
+            <div class="col-6">
+                <div class="card text-center text-uppercase">
+                    <h5>Formation en cours</h5>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card text-center text-uppercase">
+                    <h5>Formation terminés</h5>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    {# <h1>Progress index</h1>
 
     <table class="table">
         <thead>
@@ -33,5 +54,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_progress_new') }}">Create new</a>
+    <a href="{{ path('app_progress_new') }}">Create new</a>"#}
 {% endblock %}

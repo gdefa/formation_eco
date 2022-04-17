@@ -136,7 +136,7 @@ class lesson
     {
         if (!$this->progress->contains($progress)) {
             $this->progress[] = $progress;
-            $progress->addLesson($this);
+            $progress->setLesson($this);
         }
 
         return $this;
@@ -145,13 +145,17 @@ class lesson
     public function removeProgress(Progress $progress): self
     {
         if ($this->progress->removeElement($progress)) {
-            $progress->removeLesson($this);
+            // set the owning side to null (unless already changed)
+            if ($progress->getLesson() === $this) {
+                $progress->setLesson(null);
+            }
         }
 
         return $this;
     }
 
-    public function getUser(): ?user
+
+    public function getUser(): ?string
     {
         return $this->user;
     }

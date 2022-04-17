@@ -1,10 +1,31 @@
-<div class="container">
+<div class="container" style="max-width: 600px">
     <div class="row">
         <div class="col-xs-6 justify-content-center">
+
             {{ form_start(form) }}
-            {{ form_widget(form) }}
+            {{ form_row(form.title , {
+                label: 'Titre de la leçon',
+                'attr': {'class': 'mb-3'}
+            }) }}
+            {{ form_row(form.content , {
+                label: 'Contenue de la formation',
+                'attr': {'class': 'mb-3'}
+            }) }}
+            {{ form_row(form.video , {
+                label: 'Lien de la vidéo',
+                'attr': {'class': 'mb-3'}
+            }) }}
+            {{ form_row(form.picture , {
+                label: 'Images de la leçon',
+                'attr': {'class': 'mb-3'}
+            }) }}
+            {{ form_row(form.section , {
+                label: 'Choissiez la section en lien avec votre leçon',
+                'attr': {'class': 'mb-3'}
+            }) }}
+
             <button class="btn btn-success">{{ button_label|default('Sauvegarder votre leçon') }}</button>
-            {{ form_end(form) }}
+            {{ form_end(form, {render_rest: false}) }}
 
         </div>
     </div>

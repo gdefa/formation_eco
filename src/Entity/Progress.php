@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProgressRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProgressRepository::class)]
@@ -33,108 +31,73 @@ class Progress
     #[ORM\Column(type: 'integer', nullable: true)]
     private $progress_formation;
 
-    /**
-     * @return mixed
-     */
+
     public function getFormationFinished()
     {
         return $this->formationFinished;
     }
 
-    /**
-     * @param mixed $formationFinished
-     * @return Progress
-     */
     public function setFormationFinished($formationFinished)
     {
         $this->formationFinished = $formationFinished;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getLessonFinished()
     {
         return $this->lessonFinished;
     }
 
-    /**
-     * @param mixed $lessonFinished
-     * @return Progress
-     */
     public function setLessonFinished($lessonFinished)
     {
         $this->lessonFinished = $lessonFinished;
         return $this;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getUser(): ArrayCollection
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    /**
-     * @param ArrayCollection $user
-     * @return Progress
-     */
-    public function setUser(ArrayCollection $user): Progress
+    public function setUser(?User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getFormation(): ArrayCollection
+    public function getFormation(): ?Formation
     {
         return $this->formation;
     }
 
-    /**
-     * @param ArrayCollection $formation
-     * @return Progress
-     */
-    public function setFormation(ArrayCollection $formation): Progress
+
+    public function setFormation(?Formation $formation): self
     {
         $this->formation = $formation;
         return $this;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getLesson(): ArrayCollection
+
+    public function getLesson(): ?Lesson
     {
         return $this->lesson;
     }
 
-    /**
-     * @param ArrayCollection $lesson
-     * @return Progress
-     */
-    public function setLesson(ArrayCollection $lesson): Progress
+
+    public function setLesson(?Lesson $lesson): self
     {
         $this->lesson = $lesson;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getProgressFormation()
+
+    public function getProgressFormation($progress_formation)
     {
         return $this->progress_formation;
     }
 
-    /**
-     * @param mixed $progress_formation
-     * @return Progress
-     */
+
     public function setProgressFormation($progress_formation)
     {
         $this->progress_formation = $progress_formation;

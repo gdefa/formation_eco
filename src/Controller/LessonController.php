@@ -10,7 +10,6 @@ use App\Repository\formationRepository;
 use App\Repository\LessonRepository;
 use App\Repository\ProgressRepository;
 use App\Repository\SectionRepository;
-use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -73,38 +72,34 @@ class LessonController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_lesson_show', methods: ['GET'])]
-    public function show(lesson $lesson, Request $request, SectionRepository $sectionRepository, formationRepository $formationRepository): Response
+    public function show( lesson $lesson, Request $request, LessonRepository $lessonRepository, SectionRepository $sectionRepository, formationRepository $formationRepository): Response
     {
 
         $section = $lesson->getSection()->getId();
+        $formation = $sectionRepository->findOneBy(['id' => $section])->getFormation();
 
-        #$formation = $sectionRepository->findOneBy(['id' => $section])->getFormation();
+       # $Progress = new Progress();
+        # $formProgress = $this->createForm(ProgressType::class, $Progress);
+        #$formProgress->handleRequest($request);
 
-
-
-        #$progress = new Progress();
-        #$form = $this->createForm(ProgressType::class, $progress);
-        #$form->handleRequest($request);
-
-
-       #if ($form->isSubmitted() && $form->isValid()) {
-
-        #$progress->setLesson($lesson);
-        #$progress->setFormation($formation);
-        #$progress->setUser($this->getUser());
-        #$progress->setLessonFinished(true);
-        #$progress->setFormationFinished($formation->getId());
-        #$progressRepository->add($progress);
+        #if ($formProgress->isSubmitted() && $formProgress->isValid()) {
+          #  $Progress->setUser($this->getUser());
+           # $Progress->setLesson($lesson);
+            #$Progress->setFormation($formation);
+            #$Progress->setLessonFinished(true);
+            #$Progress->setProgressFormation($formation->getId());
+        #}
 
 
 
         return $this->render('lesson/show.html.twig', [
             'lesson' => $lesson,
             'section' => $section,
-            #'progress' =>$progress,
-            #'form' => $form->createView(),
-            ]);
-        }
+            #'user' => $user,
+            #'Progress' => $Progress,
+            #'form' => $formProgress->createView(),
+        ]);
+    }
 
 
     #[Route('/{id}/edit', name: 'app_lesson_edit', methods: ['GET', 'POST'])]
