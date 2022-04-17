@@ -28,29 +28,21 @@ class user implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
+
+    #[ORM\Column(type: 'string', length: 60, nullable: true)]
+
     private $fullname;
 
-    /**
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 60, nullable: true)]
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 60, nullable: true)]
     private $pseudo;
 
-    /**
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 60, nullable: true)]
     private $profilpicture;
 
-    /**
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 60, nullable: true)]
     private $description;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: formation::class)]
