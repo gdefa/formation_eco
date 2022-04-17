@@ -80,12 +80,12 @@ class QuizzController extends AbstractController
 
         $sectionTitle = $sectionRepository->findOneBy(['id' => $sectionid])->getTitle();
 
-
+        #Recherche des questions
         $question1 = $quizz->getQuestion();
         $question2 = $quizz->getQuestion2();
         $question3 = $quizz->getQuestion3();
 
-
+        #Mise en forme du quiz pour l'apprenant
         $responseQuiz = new Quizz();
         $form = $this->createForm(QuizzAppType::class, $responseQuiz);
         $form->handleRequest($request);
@@ -100,7 +100,7 @@ class QuizzController extends AbstractController
             $entityManager->persist($responseQuiz);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_quiz_index', ['id' => $id, 'app' => $this->getUser()->getId()]);
+            return $this->redirectToRoute('app_homepage', ['id' => $id, 'app' => $this->getUser()->getId()]);
         }
 
         return $this->renderForm('quiz/edit.html.twig', [
