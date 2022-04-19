@@ -30,7 +30,7 @@ class lesson
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $isFinished;
 
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Progress::class)]

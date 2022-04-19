@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
         $faker = Factory::create('fr_FR');
 
         // admin
-        $admin = new User();
+        $admin = new user();
         $admin->setEmail('defa7@live.fr');
         $admin->setPseudo('admin');
         $passwordAdmin = $this->hasher->hashPassword($admin, 'administrateur');
@@ -39,13 +39,13 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         // Instructeur non validé
-        $instructeurN = new User();
+        $instructeurN = new user();
         $instructeurN->setEmail('instructeurnotvalid@email.com');
         $instructeurN->setRoles(['ROLE_INSTRUCTEUR']);
         $passwordInstructeurN = $this->hasher->hashPassword($instructeurN, 'instructeur');
         $instructeurN->setPassword($passwordInstructeurN);
         $instructeurN->setFullname($faker->firstName());
-        $instructeurN->setName($faker->name());
+        $instructeurN->setName($faker->Name());
         $instructeurN->setProfilpicture('\Images\photo_profil.jpg');
         $instructeurN->setDescription($faker->words(3, true));
         $instructeurN->setIsAccepted(false);
@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
         $manager->persist($instructeurN);
 
         // Instructeur validé
-        $instructeur = new User();
+        $instructeur = new user();
         $instructeur->setEmail('instructeur@email.com');
         $instructeur->setRoles(['ROLE_INSTRUCTEUR']);
         $passwordInstructeur = $this->hasher->hashPassword($instructeur, 'instructeur');
@@ -68,7 +68,7 @@ class AppFixtures extends Fixture
 
         // Apprenant
 
-        $apprenant = new User();
+        $apprenant = new user();
         $apprenant->setEmail('apprenant@gmail.com');
         $apprenant->setRoles(['ROLE_APPRENANT']);
         $passwordApprenant = $this->hasher->hashPassword($apprenant, 'apprenant');
@@ -78,36 +78,41 @@ class AppFixtures extends Fixture
 
         $manager->persist($apprenant);
 
-        for ($f = 0; $f <= 10; $f++) {
-            $formation = new Formation();
+        for ($f = 0; $f <= 8; $f++) {
+            $formation = new formation();
             $formation->setUser($instructeur);
-            $formation->setPicture('\formation.jpg');
+            $formation->setPicture('\Formation.jpg');
             $formation->setDescription($faker->words(30, true));
             $formation->setTitle($faker->words(3, true));
+            $formation->setIsFinished(false);
 
             $manager->persist($formation);
 
-            for ($s = 0; $s <= 5; $s++) {
-                $section = new Section();
+            for ($s = 0; $s <= 4; $s++) {
+                $section = new section();
                 $section->setFormation($formation);
                 $section->setTitle($faker->words(3, true));
+                $section->setName($faker->words(5,true));
+                $section->setIsFinished(false);
 
                 $manager->persist($section);
 
-                for ($l = 0; $l <= 10; $l++) {
-                    $lesson = new Lesson();
+                for ($l = 0; $l <= 6; $l++) {
+                    $lesson = new lesson();
                     $lesson->setTitle($faker->words(4, true));
                     $lesson->setSection($section);
                     $lesson->setContent($faker->text(6000));
-                    $lesson->setPicture('\laptopforet.png');
+                    $lesson->setPicture('lesson\formation1.jpg');
                     $lesson->setVideo('https://www.youtube.com/watch?v=EZNM0AiAEeA');
+                    $lesson->setIsFinished(false);
+                    $lesson->setSlug($faker->words(1,true));
 
                     $manager->persist($lesson);
 
 
-
                     $quizz = new Quizz();
                     $quizz->setSection($section);
+                    $quizz->setTitle($faker->words(4,true));
                     $quizz->setUser(null);
                     $quizz->setQuestion($faker->words(10, true));
                     $quizz->setAnswer(true);
@@ -116,16 +121,12 @@ class AppFixtures extends Fixture
                     $quizz->setQuestion3($faker->words(20, true));
                     $quizz->setAnswer3(false);
 
-
                     $manager->persist($quizz);
 
                 }
             }
 
-
-
         }
-
 
         /////
         $manager->flush();
