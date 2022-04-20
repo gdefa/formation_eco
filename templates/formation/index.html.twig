@@ -28,15 +28,15 @@
                         <h3 class="formationTitle"><strong>{{ formation.title }}</strong></h3>
                     </div>
                     <div class="mt-3 m-3">
-                        <img class="img-thumbnail" src="{{ asset('Formation/' ~  formation.picture ) }}" style="height: 200px; width:250px ">
+                        <img class="img-thumbnail" src="{{ asset('formation/' ~  formation.picture ) }}" style="height: 200px; width:250px ">
                     </div>
                     <div class="mt-3">
                         <p class="description">{{ formation.description }}</p>
                     </div>
                     <div>
-                        <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-outline-success">Accès a la formation</a>
+                        <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-success" style="color: #ffffff;background: rgb(71,66,65);">Accès a la formation</a>
                         {% if is_granted('ROLE_INSTRUCTEUR') != false %}
-                            <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-outline-secondary">Modification</a>
+                            <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-secondary" style="color: #ffffff;background: rgb(71,66,65);">Modification</a>
                         {% endif %}
                     </div>
                 </div>
