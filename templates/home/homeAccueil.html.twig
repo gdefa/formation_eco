@@ -35,7 +35,7 @@
                 {% for formation in formations %}
                     <div class="col-sm-6 col-md-4 item">
                         <h3 class="name"><strong>{{ formation.title }}</strong></h3>
-                        <img class="img-thumbnail" style="width:260px;height:260px" src="{{ asset('Formation/' ~  formation.picture ) }}" alt="">
+                        <img class="img-thumbnail" style="width:260px;height:260px" src="{{ asset('formation/' ~  formation.picture ) }}" alt="">
                         <p class="description">{{ formation.description }}</p>
                         <a href="{{ path('app_formation_show' , {'id' :  formation.id} ) }}" class="btn btn-sucess" style="color: #ffffff;background: rgb(71,66,65);">Accès a la formation</a>
                     </div>
