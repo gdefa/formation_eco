@@ -46,7 +46,7 @@ class AppFixtures extends Fixture
         $instructeurN->setPassword($passwordInstructeurN);
         $instructeurN->setFullname($faker->firstName());
         $instructeurN->setName($faker->Name());
-        $instructeurN->setProfilpicture('\Images\photo_profil.jpg');
+        $instructeurN->setProfilpicture('\images\photo_profil.jpg');
         $instructeurN->setDescription($faker->words(3, true));
         $instructeurN->setIsAccepted(false);
 
@@ -60,7 +60,7 @@ class AppFixtures extends Fixture
         $instructeur->setPassword($passwordInstructeur);
         $instructeur->setFullname($faker->firstName());
         $instructeur->setName($faker->name());
-        $instructeur->setProfilpicture('\Images\photo_profil2.jpg');
+        $instructeur->setProfilpicture('\images\photo_profil2.jpg');
         $instructeur->setDescription($faker->words(3, true));
         $instructeur->setIsAccepted(true);
 
@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
         for ($f = 0; $f <= 8; $f++) {
             $formation = new formation();
             $formation->setUser($instructeur);
-            $formation->setPicture('\Formation.jpg');
+            $formation->setPicture('\formation.jpg');
             $formation->setDescription($faker->words(30, true));
             $formation->setTitle($faker->words(3, true));
             $formation->setIsFinished(false);
@@ -102,8 +102,8 @@ class AppFixtures extends Fixture
                     $lesson->setTitle($faker->words(4, true));
                     $lesson->setSection($section);
                     $lesson->setContent($faker->text(6000));
-                    $lesson->setPicture('lesson\formation1.jpg');
-                    $lesson->setVideo('https://www.youtube.com/watch?v=EZNM0AiAEeA');
+                    $lesson->setPicture('\formation1.jpg');
+                    $lesson->setVideo('https://youtu.be/6-gl0H7uWnk');
                     $lesson->setIsFinished(false);
                     $lesson->setSlug($faker->words(1,true));
 
