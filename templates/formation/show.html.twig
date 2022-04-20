@@ -25,12 +25,12 @@
             {% for sectionFormation in sectionsFormation %}
             <div class="col-sm-6 col-md-4 formationGlobal ">
                 <h3 class="formationTitle"><strong>{{ sectionFormation.title }}</strong></h3>
-                <img class="img-thumbnail" src="{{ asset('Formation/' ~  formation.picture ) }}" alt="formation image">
+                <img class="img-thumbnail" src="{{ asset('formation/' ~  formation.picture ) }}" alt="formation_image">
                 <p class="description">{{ sectionFormation.name }}</p>
-                <a href="{{ path('app_section_show', {'id': sectionFormation.id }) }}" class="btn btn-success" >Acceder au cours</a>
-                <a href="{{ path('app_quizz_edit', {'id' : sectionFormation.id }) }}" class="btn btn-outline-danger">Quiz</a>
+                <a href="{{ path('app_section_show', {'id': sectionFormation.id }) }}" class="btn btn-success" style="color: #ffffff;background: rgb(71,66,65);" >Acceder au cours</a>
+                <a href="{{ path('app_homepage', {'id' : sectionFormation.id }) }}" class="btn btn-danger">Quiz</a>
                 {% if is_granted('ROLE_INSTRUCTEUR') != false %}
-                <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-secondary">Modification</a>
+                <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-secondary" style="color: #ffffff;background: rgb(71,66,65);">Modification</a>
                 {{ include('formation/_delete_form.html.twig') }}
                 {% endif %}
             </div>
