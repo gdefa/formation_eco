@@ -9,6 +9,8 @@ Les documents annexes sont disponibles dans le dossier ANNEXES :
 - Charte graphique 
 - Manuel d'utilisation 
 - Documentation technique 
+- Kanban
+- Wireframes
 
 # Recupération 
 
@@ -34,6 +36,9 @@ php bin/console doctrine:database:create
 
 # Création des tables (migrations)
 php bin/console doctrine:migrations:migrate
+
+# Insertions des jeux de données (fixtures)
+php bin/console doctrine:fixtures:load 
 
 ```
 ## Utilisation
